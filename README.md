@@ -3,7 +3,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[Use 'yarn install' to load the node modules before using next steps]
+[Use 'yarn install' to download the node modules before using next steps]
 
 ## Available Scripts
 
