@@ -68,13 +68,13 @@
 		outline: none;
 		border: none;
 		border-radius: 19.5px;
-		box-shadow: 0 7px #999;
+		box-shadow: 0 5px #999;
 		border-color: transparent;
 		background-color: transparent;
 }
 
 .Button:active{
-	box-shadow: 0 3px #666;
+	box-shadow: 0 2px #666;
   	transform: translateY(4px);
 }
 

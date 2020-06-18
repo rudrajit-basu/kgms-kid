@@ -1,8 +1,9 @@
 import React from 'react';
 import './KStyle.css';
-import H1 from './img/main/H1.png';
-import H2 from './img/main/H2.png';
-import H3 from './img/main/H3.png';
+import HH from './img/main/HH.png';
+// import H1 from './img/main/H1.png';
+// import H2 from './img/main/H2.png';
+// import H3 from './img/main/H3.png';
 import H4 from './img/main/H4.png';
 import B1 from './img/main/B1.png';
 import B2 from './img/main/B2.png';
@@ -33,13 +34,25 @@ import "firebase/firestore";
 const img_M = [{id:15,src:M1,alt:'M1'},{id:16,src:M2,alt:'M2'},{id:17,src:M3,alt:'M3'}];
 const img_O = [{id:10,src:O1,alt:'O1'},{id:11,src:O2,alt:'O2'},{id:12,src:O3,alt:'O3'}];
 // const img_A = [{id:26,src:A1,alt:'A1'},{id:27,src:A2,alt:'A2'},{id:28,src:A3,alt:'A3'},{id:29,src:A4,alt:'A4'},{id:30,src:A5,alt:'A5'},{id:31,src:A6,alt:'A6'}];
+const eImgL1 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade"/>;
+const eImgL2 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>; 
+const eImgL3 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade"/>;
+const eImgL4 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>;
+
+const eImgR1 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade"/>;
+const eImgR2 = <img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade"/>;
+const eImgR3 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>;
+const eImgR4 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>;
+
+const imgArrL = [eImgL1,eImgL2,eImgL3,eImgL4];
+const imgArrR = [eImgR1,eImgR2,eImgR3,eImgR4];
 const kJsonData = KData;
 
 class KDesk extends React.Component{
 
 	constructor(props){
 		super(props);
-		this.state = {currentButton:'home',isModal:false,modalMsg:'',
+		this.state = {currentButton:'home',isModal:false,modalMsg:'', kBodyNum: [],
 						KEvents:[{id:0,header:"Please wait... Fetching Events >>",date:"",desc:""}],
 						eventNum:0, isEvenTrig:false};
 		this.getContent = this.getContent.bind(this);
@@ -51,63 +64,33 @@ class KDesk extends React.Component{
 		this.getEventsFrom = this.getEventsFrom.bind(this);
 		this.fetchEvents = this.fetchEvents.bind(this);
 		this.handleHistoryPop = this.handleHistoryPop.bind(this);
+		this.handleCurrentDecoList = this.handleCurrentDecoList.bind(this);
+		this.bodyRef = React.createRef();
 	}
 
 
 	async fetchEvents(){
 		let db = this.props.firebase.firestore();
-		let unsubscribe = db.collection("kgms-events").orderBy("tagId")
-							.onSnapshot((querySnapshot) => {
-								let kevents = [];
-								let knum = 0;
-								querySnapshot.forEach((doc) => {
-									// console.log(`${doc.id} => ${doc.data().desc}`);
-									kevents.push({id:doc.data().tagId,header:doc.data().header,date:doc.data().date,desc:doc.data().desc});
-									knum ++;
-								});
-									if(knum === 0){
-										this.setState({KEvents:[{id:0,header:"No events available !",date:"",desc:""}],isEvenTrig:true});
-									}else{
-										this.setState({KEvents:kevents,eventNum:knum,isEvenTrig:true});
-									}
-							},(error)=>{
-								this.setState({KEvents:[{id:0,header:"Something went wrong. Please try later. >>",date:"",desc:""}]});
-								console.log(`Error: ${error}`);
-							});
-
-		this.dbUnsubscribe = () => {
-			unsubscribe();
-			if(this.state.eventNum === 0){
-				this.setState({KEvents:[{id:0,header:"Please check the internet connection and try later. >>",date:"",desc:""}]});
-			}
-			// this.setState({KEvents:[{id:0,header:"Please check the internet connection and try later. >>",date:"",desc:""}],eventNum:0});
-			// console.log('Offline');
-		};
-		window.addEventListener('offline',this.dbUnsubscribe,false);
-
-		this.dbSubscribe = () => {
-			unsubscribe = db.collection("kgms-events").orderBy("tagId")
-							.onSnapshot((querySnapshot) => {
-								let kevents = [];
-								let knum = 0;
-								querySnapshot.forEach((doc) => {
-									// console.log(`${doc.id} => ${doc.data().desc}`);
-									kevents.push({id:doc.data().tagId,header:doc.data().header,date:doc.data().date,desc:doc.data().desc});
-									knum ++;
-								});
-									if(knum === 0){
-										this.setState({KEvents:[{id:0,header:"No events available !",date:"",desc:""}],isEvenTrig:true});
-									}else{
-										this.setState({KEvents:kevents,eventNum:knum,isEvenTrig:true});
-									}
-									// this.setState({KEvents:kevents,eventNum:knum,isEvenTrig:true});
-							},(error)=>{
-								this.setState({KEvents:[{id:0,header:"Something went wrong. Please try later. >>",date:"",desc:""}],eventNum:0});
-								console.log(`Error: ${error}`);
-							});
-			// console.log('Online');
-		};
-		window.addEventListener('online',this.dbSubscribe,false);
+		db.collection("kgms-events").orderBy("tagId")
+			.onSnapshot((querySnapshot) => {
+				let kevents = [];
+				let knum = 0;
+				querySnapshot.forEach((doc) => {
+					// console.log(`${doc.id} => ${doc.data().desc}`);
+					kevents.push({id:doc.data().tagId,header:doc.data().header,date:doc.data().date,desc:doc.data().desc});
+					knum ++;
+				});
+					if(knum === 0){
+						this.setState({KEvents:[{id:0,header:"No events available !",date:"",desc:""}],isEvenTrig:true});
+					}else{
+						this.setState({KEvents:kevents,eventNum:knum,isEvenTrig:true});
+					}
+					this.timerDecor = setTimeout(() => this.handleCurrentDecoList(),1200);
+			},(error)=>{
+				this.setState({KEvents:[{id:0,header:"Something went wrong. Please try later. >>",date:"",desc:""}]});
+				console.log(`Error: ${error}`);
+				this.timerDecor = setTimeout(() => this.handleCurrentDecoList(),1200);
+			});
 	}
 
 
@@ -122,11 +105,8 @@ class KDesk extends React.Component{
 
 	componentWillUnmount(){
 		window.removeEventListener('popstate',this.handleHistoryPop,false);
-		if(this.state.isEvenTrig){
-			window.removeEventListener('offline',this.dbUnsubscribe,false);
-			window.removeEventListener('online',this.dbSubscribe,false);
-		}
 		window.removeEventListener('kRefresh', this.kRefreshInfo, false);
+		clearTimeout(this.timerDecor);
 	}
 
 	handleHistoryPop(event){
@@ -191,7 +171,7 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'20%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.3%"}} className="noSelect pt-page-moveFromBottomFade"/>
 					</div>
 					<div align="left" style={{marginTop:'75%'}}>
 						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>
@@ -210,17 +190,23 @@ class KDesk extends React.Component{
 				</div>
 			);
 		} else if(button==='events'){
+			let rNum = 1;
+			let decoR = this.state.kBodyNum.map((dList)=>{
+				if(rNum === 4){
+					rNum = 0;
+				}
+				return(
+					<div style={{marginTop:'225%'}} key={dList.toString()} align="center">
+						{imgArrR[rNum++]}
+					</div>
+				);
+			});
 			return(
 				<div key={button}>
-					<div align="center"  className="eRM2">
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade"/>
+					<div align="center" style={{marginTop:'10%'}}>
+						{imgArrR[0]}
 					</div>
-					<div align="center" style={{display:(this.state.eventNum >= 3) ? 'block' : 'none'}} className="eRO3">
-						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade"/>
-					</div>
-					<div align="center" style={{display:(this.state.eventNum >= 5) ? 'block' : 'none'}} className="eRM3">
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>
-					</div>	
+					{decoR}
 				</div>
 			);
 		} else if(button==='programs'){
@@ -251,6 +237,23 @@ class KDesk extends React.Component{
 		}	
 	}
 
+	async handleCurrentDecoList(){
+		if(this.bodyRef.current !== null){
+			let bHeight = this.bodyRef.current.clientHeight;
+			if( bHeight !== undefined && bHeight > 0){
+				let i = bHeight / 650;
+				let j = Math.floor(i);
+				// console.log(`j = ${j}`);
+				let k = [];
+				while(j > 0){
+					k.push(j);
+					j--;
+				}
+				this.setState({kBodyNum: k});
+			}
+		}
+	}
+
 	getLeftDeck(button){
 		if(button==='home'){
 			return(
@@ -275,20 +278,23 @@ class KDesk extends React.Component{
 				</div>
 			);
 		} else if(button==='events'){
+			let lNum = 1;
+			let decoL = this.state.kBodyNum.map((dList)=>{
+				if(lNum === 4){
+					lNum = 0;
+				}
+				return(
+					<div style={{marginTop:'225%'}} key={dList.toString()} align="center">
+						{imgArrL[lNum++]}
+					</div>
+				);
+			});
 			return(
 				<div key={button}>
-					<div align="center" className="eLM3">
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade"/>
+					<div align="center" style={{marginTop:'10%'}}>
+						{imgArrL[0]}
 					</div>
-					<div align="center" style={{display:(this.state.eventNum >= 2) ? 'block' : 'none'}} className="eLM1">
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>
-					</div>
-					<div align="center" style={{display:(this.state.eventNum >= 4) ? 'block' : 'none'}} className="eLM2">
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade"/>
-					</div>
-					<div align="center" style={{display:(this.state.eventNum >= 6) ? 'block' : 'none'}} className="eLM11">
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>
-					</div>
+					{decoL}
 				</div>
 			);
 		} else if(button==='programs'){
@@ -451,28 +457,26 @@ class KDesk extends React.Component{
 			<div className="App" /*app start*/>
 				<div className="Row" /*header start*/>
 					<div className="Column HeaderLeft noSelect"> 
-						<div style={{marginLeft:"30px",marginTop:"27px"}}>
-							<img src={H1} alt="khela ghar" style={{width:"25%"}} />
-							<img src={H2} alt="montessory" style={{width:"28%",marginLeft:"22px"}} />
-							<img src={H3} alt="school" style={{width:"16.1%",marginLeft:"16px"}} />
+						<div style={{marginLeft:"30px",marginTop:"28px"}}>
+							<img src={HH} alt="khela ghar title" style={{width:"72%"}} />
 						</div>
 						<br/> 
 						<div align="center" style={{marginLeft:"30px"}}>
-							<input type="image" src={B1} alt="B1" style={{width:"12.1%"}} className="Button"  name="home" onClick={this.handleButtonClick}/>
-							<input type="image" src={B2} alt="B2" style={{width:"12.1%",marginLeft:"40px"}} className="Button"  name="aboutus" onClick={this.handleButtonClick}/>
-							<input type="image" src={B3} alt="B3" style={{width:"12.1%",marginLeft:"40px"}} className="Button" name="events" onClick={this.handleButtonClick}/>
-							<input type="image" src={B4} alt="B4" style={{width:"12.1%",marginLeft:"40px"}} className="Button" name="programs" onClick={this.handleButtonClick}/>
-							<input type="image" src={B5} alt="B5" style={{width:"12.1%",marginLeft:"40px"}} className="Button" name="contactus" onClick={this.handleButtonClick}/>
+							<input type="image" src={B1} alt="B1" style={{width:"11.8%"}} className="Button"  name="home" onClick={this.handleButtonClick}/>
+							<input type="image" src={B2} alt="B2" style={{width:"11.8%",marginLeft:"40px"}} className="Button"  name="aboutus" onClick={this.handleButtonClick}/>
+							<input type="image" src={B3} alt="B3" style={{width:"11.8%",marginLeft:"40px"}} className="Button" name="events" onClick={this.handleButtonClick}/>
+							<input type="image" src={B4} alt="B4" style={{width:"11.8%",marginLeft:"40px"}} className="Button" name="programs" onClick={this.handleButtonClick}/>
+							<input type="image" src={B5} alt="B5" style={{width:"11.8%",marginLeft:"40px"}} className="Button" name="contactus" onClick={this.handleButtonClick}/>
 						</div>
 					</div>
 					<div className="Column HeaderRight noSelect">
 						<div style={{marginLeft:"2px",marginTop:"18px"}}> 
-							<img src={H4} alt="sun" style={{width:"71%"}}/>
+							<img src={H4} alt="sun" style={{width:"70%"}}/>
 						</div>
 					</div>	
 				</div /*header end*/>
 
-				<div className="Row" style={{marginTop:"70px"}}/*body start*/>
+				<div className="Row" style={{marginTop:"70px"}} ref={this.bodyRef} /*body start*/>
 					<div className="Column BodyLeft">
 						{this.getLeftDeck(this.state.currentButton)}
 					</div>

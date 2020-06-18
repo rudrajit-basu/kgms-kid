@@ -1,8 +1,9 @@
 import React from 'react';
 import './MStyle.css';
-import H1 from './img/main/H1.png';
-import H2 from './img/main/H2.png';
-import H3 from './img/main/H3.png';
+import HHM from './img/main/HHM.png';
+// import H1 from './img/main/H1.png';
+// import H2 from './img/main/H2.png';
+// import H3 from './img/main/H3.png';
 import H4 from './img/main/H4.png';
 import B1 from './img/main/B1.png';
 import B2 from './img/main/B2.png';
@@ -321,17 +322,7 @@ class KMob extends React.Component{
 					</div /*Button Modal End*/>	
 				</div /*header1 end*/>
 				<div align="left" className="hDiv" /*header2 start*/>
-					<ul style={{listStyleType:'none'}}>
-						<li>
-							<img src={H1} alt="khela ghar" className="mH1 noSelect"/>
-						</li>
-						<li className="hGap">
-							<img src={H2} alt="montessory" className="mH2 noSelect"/>
-						</li>
-						<li className="hGap">
-							<img src={H3} alt="school" className="mH3 noSelect"/>
-						</li>
-					</ul>
+					<img src={HHM} alt="khela ghar title" className="mH1 noSelect"/>
 				</div /*header2 end*/>
 				<div style={{width:'100%'}} /*body start*/>
 					<div className="mBodyContent1">
