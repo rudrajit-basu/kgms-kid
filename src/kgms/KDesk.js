@@ -241,7 +241,7 @@ class KDesk extends React.Component{
 		if(this.bodyRef.current !== null){
 			let bHeight = this.bodyRef.current.clientHeight;
 			if( bHeight !== undefined && bHeight > 0){
-				let i = bHeight / 650;
+				let i = bHeight / 550;
 				let j = Math.floor(i);
 				// console.log(`j = ${j}`);
 				let k = [];
