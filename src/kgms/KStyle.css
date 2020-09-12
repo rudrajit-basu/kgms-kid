@@ -33,12 +33,15 @@
 }
 
 .App{
-	/*background-color: #ffff00;*/
 	background-color: #ffeb3b;
-	/*background-color: #f4c20d;*/
 	min-height: 100vh;
-	overflow: hidden;
-	font-family: Arial, Helvetica, sans-serif;
+	overflow-y: auto;
+  	overflow-x: hidden;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*overflow: hidden;*/
+	/*background-color: #f4c20d;*/
+	/*background-color: #ffff00;*/
 }
 
 .Column{
@@ -271,13 +274,14 @@
 .ImgFlip{
   /*-webkit-transform: scaleX(-1);
   transform: scaleX(-1);*/
-  -webkit-transform: scaleX(-1);
+  /*-webkit-transform: scaleX(-1);
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   transform: scaleX(-1);
 
   filter: FlipH;
-  -ms-filter: "FlipH";
+  -ms-filter: "FlipH";*/
+  transform: rotateY(180deg);
 }
 
 .ImgTilt{
@@ -298,7 +302,7 @@
 
 .NoticeDec{
 	font-family: "Arial Black", Gadget, sans-serif;
-	border: 3.2px solid black;
+	border: 3px solid black;
 	display: inline-block;
 	/*padding: 3px 5px 3px 5px;*/
 	padding: 5px;
@@ -366,4 +370,27 @@
 .eLM11{
 	margin-top: 60vh;
 	position: relative;
+}
+
+.dWordWrap{
+	word-break: break-word;
+}
+
+.dMainHead{
+  font-size: 1.56vw;
+  color: black;
+  font-weight: bold;
+}
+
+.dMain{
+  font-size: 1.45vw;
+  color: black;
+  font-weight: bold;
+}
+
+.dTextBlk{
+  /*padding-right: 10px;*/
+  /*letter-spacing: 0.1px;*/
+  word-spacing: 0.4px;
+  line-height: 1.46;
 }

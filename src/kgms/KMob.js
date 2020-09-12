@@ -36,6 +36,7 @@ class KMob extends React.Component{
 		this.handleMModalStart = this.handleMModalStart.bind(this);
 		this.mFetchEvents = this.mFetchEvents.bind(this);
 		this.handleMHistoryPop = this.handleMHistoryPop.bind(this);
+		this.getMEventsFrom = this.getMEventsFrom.bind(this);
 	}
 
 	async mFetchEvents(){
@@ -163,6 +164,26 @@ class KMob extends React.Component{
 		// }
 	}
 
+	getMEventsFrom(){
+		let lineKey = 1;
+		let spaceKey = 1;
+		let divKey = 89;
+		let eventListItems = this.state.mKEvents.map((KEvent) =>
+			<div className="mTextBlk" key={(divKey++).toString()+'gmef'}>
+				<p className="mTextGap2"><b className="mNoticeDec mTextSubHead">{KEvent.id}</b></p>
+				<p ><b className="mTextSubHead">{KEvent.header}</b></p>
+				<p><b className="mTextMain">{KEvent.date}</b></p>
+				<p><b className="mTextMain">{KEvent.desc.split('\n').map((item) => {
+					return <span key={(lineKey++).toString()+'mlk'}>{item.split(' ').map((sItem)=>{
+						return <span key={(spaceKey++).toString()+'msk'}>{sItem}&nbsp; </span>
+					})}<br/></span>
+				})}</b></p>
+			</div>
+		);
+
+		return eventListItems;		
+	}
+
 	getMContent(button){
 		if(button === 'home'){
 			return(
@@ -200,16 +221,7 @@ class KMob extends React.Component{
 					<div className="mBodyContent2">
 						<p><b className="mTextHead">Events</b></p>
 						<hr className="mHrBlack"/>
-						{this.state.mKEvents.map((KEvent) =>
-								<div className="mTextBlk" key={KEvent.id.toString()}>
-									<p className="mTextGap2"><b className="mNoticeDec mTextSubHead">{KEvent.id}</b></p>
-									<p ><b className="mTextSubHead">{KEvent.header}</b></p>
-									<p><b className="mTextMain">{KEvent.date}</b></p>
-									<p><b className="mTextMain">{KEvent.desc.split('\n').map((item,key) => {
-										return <span key={key}>{item}<br/></span>
-									})}</b></p>
-								</div>
-							)}
+						{this.getMEventsFrom()}
 					</div>
 				</div>
 			);
@@ -283,7 +295,7 @@ class KMob extends React.Component{
 			/*console.log('mFetchEvents triggered.....');*/
 		}
 		return(
-			<div className="App" /*app start*/>
+			<div className="mApp" /*app start*/>
 				<div /*header1 start*/>
 					<div className="Row">
 						<div className="Column TopLeft">

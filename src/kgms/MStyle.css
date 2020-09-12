@@ -2,12 +2,15 @@
   box-sizing: border-box;
 }
 
-.App{
-	/*background-color: #ffff00;*/
+.mApp{
 	background-color: #ffeb3b;
 	min-height: 100vh;
-	overflow: hidden;
-	font-family: Arial, Helvetica, sans-serif;
+	overflow-y: auto;
+	overflow-x: hidden;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	/*overflow: hidden;*/
+	/*background-color: #ffff00;*/
 }
 
 .Column{
@@ -383,10 +386,12 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
-		text-justify: inter-word;
-		/*word-spacing: 0.1px;*/
-		line-height: 1.65;
+		/*text-align: justify;*/
+		/*text-justify: inter-word;*/
+		/*word-spacing: 0.4px;
+		letter-spacing: 0.2px;*/
+		line-height: 1.7;
+		word-break: break-word;
 	}
 
 	.mTextGap1{
@@ -608,10 +613,11 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
-		text-justify: inter-word;
+		/*text-align: justify;
+		text-justify: inter-word;*/
 		/*word-spacing: 1px;*/
-		line-height: 1.7;
+		line-height: 1.75;
+		word-break: break-word;
 	}
 
 	.mTextGap1{
@@ -832,10 +838,11 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
+		/*text-align: justify;
 		text-justify: inter-word;
-		word-spacing: 1px;
-		line-height: 1.65;
+		word-spacing: 1px;*/
+		line-height: 1.75;
+		word-break: break-word;
 	}
 
 	.mTextGap1{
@@ -1056,10 +1063,11 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
+		/*text-align: justify;
 		text-justify: inter-word;
-		word-spacing: 1px;
-		line-height: 1.65;
+		word-spacing: 1px;*/
+		line-height: 1.75;
+		word-break: break-word;
 	}
 
 	.mTextGap1{
@@ -1299,10 +1307,11 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
+		/*text-align: justify;
 		text-justify: inter-word;
-		word-spacing: 1px;
-		line-height: 1.65;
+		word-spacing: 1px;*/
+		line-height: 1.75;
+		word-break: break-word;
 	}
 
 	.mTextGap1{
@@ -1541,10 +1550,11 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
+		/*text-align: justify;
 		text-justify: inter-word;
-		word-spacing: 2px;
-		line-height: 1.7;
+		word-spacing: 2px;*/
+		line-height: 1.75;
+		word-break: break-word;
 	}
 
 	.mTextGap1{
@@ -1783,10 +1793,11 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
+		/*text-align: justify;
 		text-justify: inter-word;
-		word-spacing: 1px;
-		line-height: 1.7;
+		word-spacing: 1px;*/
+		line-height: 1.8;
+		word-break: break-word;
 	}
 
 	.mTextGap1{
@@ -2007,10 +2018,11 @@
 	}
 
 	.mTextBlk{
-		text-align: justify;
+		/*text-align: justify;
 		text-justify: inter-word;
-		word-spacing: 2px;
-		line-height: 1.7;
+		word-spacing: 2px;*/
+		line-height: 1.85;
+		word-break: break-word;
 	}
 
 	.mTextGap1{

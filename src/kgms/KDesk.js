@@ -140,29 +140,32 @@ class KDesk extends React.Component{
 
 
 	getEventsFrom(){
-		let i = 0;
+		let lineKey = 1;
+		let spaceKey = 1;
+		let divKey = 88;
 		let eventListItems = this.state.KEvents.map((KEvent) => {
 			// i++;
 			// let refName = 'fEvent' + i.toString(); ref={f => this[`${'fEvent' + i.toString()}_ref`] = f}
 			return (
-				<div style={{marginTop:"40px"}} key={(i++).toString()}>
+				<div style={{marginTop:"40px"}} key={(divKey++).toString()+'gef'}>
 					<div className="Row" >
 						<div className="Column EventLeft" style={{paddingTop:'6px'}}>
 							<p className="NoticeDec">{KEvent.id}</p>
 						</div>
-						<div className="Column EventRight">
-							<h4 style={{fontSize:'1.2em'}}> {KEvent.header} </h4>
-							<h4 style={{marginTop:'-10px',fontSize:'1.12em'}}>{KEvent.date}</h4>
-							<h4 style={{marginTop:'-5px'}}>{KEvent.desc.split('\n').map((item,key) => {
-								return <span key={key} className="spanStyl">{item}<br/></span>
+						<div className="Column EventRight dWordWrap dTextBlk">
+							<h4 className="dMainHead"> {KEvent.header} </h4>
+							<h4 style={{marginTop:'-10px'}} className="dMain ">{KEvent.date}</h4>
+							<h4 style={{marginTop:'-5px'}} className="dMain">{KEvent.desc.split('\n').map((item) => {
+								return <span key={(lineKey++).toString()+'lk'} className="spanStyl">{item.split(' ').map((sItem)=>{
+									return <span key={(spaceKey++).toString()+'sk'}>{sItem}&nbsp; </span>
+								})}<br/></span>
 							})}</h4>
 						</div>
 					</div>
 				</div>
 			);
-		}
-				
-			);
+		});
+
 		return(eventListItems);	
 	}
 
@@ -348,7 +351,7 @@ class KDesk extends React.Component{
 							<div style={{marginLeft:"40px",marginRight:"40px"}} className="TextContent">
 								<h1 style={{fontSize:"2em"}}>About Us</h1>
 								<hr className="HrBlack"/>
-								<div style={{textAlign:"justify",wordSpacing:"4px",lineHeight:"1.6",fontSize:"1.1em",textJustify:"inter-word"}}>
+								<div style={{textAlign:"justify",wordSpacing:"4px",lineHeight:"1.6",fontSize:"1.156em",textJustify:"inter-word"}}>
 										<h4 style={{marginTop:"25px"}}>{kJsonData.KAboutUs.para1}</h4>
 										<h4 style={{marginTop:"25px"}}>{kJsonData.KAboutUs.para2}</h4>	
 								</div>
@@ -386,41 +389,41 @@ class KDesk extends React.Component{
 							<div style={{marginLeft:"40px",marginRight:"40px"}} className="TextContent">
 								<h1 style={{fontSize:"2em"}}>Programs</h1>
 								<hr className="HrBlack"/>
-								<div style={{textAlign:"justify",wordSpacing:"4px",lineHeight:"1.6",fontSize:"1.1em",textJustify:"inter-word"}}>
+								<div style={{textAlign:"justify",wordSpacing:"4px",lineHeight:"1.7",fontSize:"1.156em",textJustify:"inter-word"}}>
 									<div style={{marginTop:"60px"}}>
-										<h4 style={{fontSize:'1.2em'}}>{kJsonData.KPrograms.title1}</h4>
+										<h4 style={{fontSize:'1.195em'}}>{kJsonData.KPrograms.title1}</h4>
 										<hr className="HrBlackSub" align="left"/>
 										<h4>{kJsonData.KPrograms.title1_desc}</h4>
 									</div>	
 									<div style={{marginTop:"60px"}}>
-										<h4 style={{fontSize:'1.2em'}}>{kJsonData.KPrograms.title2}</h4>
+										<h4 style={{fontSize:'1.195em'}}>{kJsonData.KPrograms.title2}</h4>
 										<hr className="HrBlackSub" align="left"/>
 										<h4>{kJsonData.KPrograms.title2_desc}</h4>
 									</div>
 									<div style={{marginTop:"60px"}}>
-										<h4 style={{fontSize:'1.2em'}}>{kJsonData.KPrograms.title3}</h4>
+										<h4 style={{fontSize:'1.195em'}}>{kJsonData.KPrograms.title3}</h4>
 										<hr className="HrBlackSub" align="left"/>
 										<h4>{kJsonData.KPrograms.title3_desc1}</h4>
 										<h4>{kJsonData.KPrograms.title3_desc2}</h4>
 										<h4>{kJsonData.KPrograms.title3_desc3}</h4>
 									</div>
 									<div style={{marginTop:"60px"}}>
-										<h4 style={{fontSize:'1.2em'}}>{kJsonData.KPrograms.title4}</h4>
+										<h4 style={{fontSize:'1.195em'}}>{kJsonData.KPrograms.title4}</h4>
 										<hr className="HrBlackSub" align="left"/>
 										<h4>{kJsonData.KPrograms.title4_desc}</h4>
 									</div>
 									<div style={{marginTop:"60px"}}>
-										<h4 style={{fontSize:'1.2em'}}>{kJsonData.KPrograms.title5}</h4>
+										<h4 style={{fontSize:'1.195em'}}>{kJsonData.KPrograms.title5}</h4>
 										<hr className="HrBlackSub" align="left"/>
 										<h4>{kJsonData.KPrograms.title5_desc}</h4>
 									</div>
 									<div style={{marginTop:"60px"}}>
-										<h4 style={{fontSize:'1.2em'}}>{kJsonData.KPrograms.title6}</h4>
+										<h4 style={{fontSize:'1.195em'}}>{kJsonData.KPrograms.title6}</h4>
 										<hr className="HrBlackSub" align="left"/>
 										<h4>{kJsonData.KPrograms.title6_desc}</h4>
 									</div>
 									<div style={{marginTop:"60px"}}>
-										<h4 style={{fontSize:'1.2em'}}>{kJsonData.KPrograms.title7}</h4>
+										<h4 style={{fontSize:'1.195em'}}>{kJsonData.KPrograms.title7}</h4>
 										<hr className="HrBlackSub" align="left"/>
 										<h4>{kJsonData.KPrograms.title7_desc}</h4>
 									</div>
