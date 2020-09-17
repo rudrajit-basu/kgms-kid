@@ -394,3 +394,13 @@
   word-spacing: 0.4px;
   line-height: 1.46;
 }
+
+.dTextBlkDesc{
+  word-spacing: 0px;
+  line-height: 1.46;
+}
+
+.dWordGap{
+  display: inline-block;
+  width: 0.4px;
+}

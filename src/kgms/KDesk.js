@@ -152,12 +152,12 @@ class KDesk extends React.Component{
 						<div className="Column EventLeft" style={{paddingTop:'6px'}}>
 							<p className="NoticeDec">{KEvent.id}</p>
 						</div>
-						<div className="Column EventRight dWordWrap dTextBlk">
-							<h4 className="dMainHead"> {KEvent.header} </h4>
-							<h4 style={{marginTop:'-10px'}} className="dMain ">{KEvent.date}</h4>
-							<h4 style={{marginTop:'-5px'}} className="dMain">{KEvent.desc.split('\n').map((item) => {
+						<div className="Column EventRight dWordWrap">
+							<h4 className="dMainHead dTextBlk"> {KEvent.header} </h4>
+							<h4 style={{marginTop:'-10px'}} className="dMain dTextBlk">{KEvent.date}</h4>
+							<h4 style={{marginTop:'-5px'}} className="dMain dTextBlkDesc">{KEvent.desc.split('\n').map((item) => {
 								return <span key={(lineKey++).toString()+'lk'} className="spanStyl">{item.split(' ').map((sItem)=>{
-									return <span key={(spaceKey++).toString()+'sk'}>{sItem}&nbsp; </span>
+									return <span key={(spaceKey++).toString()+'sk'}>{sItem}<span className="dWordGap"/> </span>
 								})}<br/></span>
 							})}</h4>
 						</div>

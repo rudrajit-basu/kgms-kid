@@ -213,15 +213,17 @@
     bottom: -9px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
-	  z-index: 2; /* Sit on top */
+	  z-index: 1; /* Sit on top */
 	  padding-top: 15%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
-	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  width: 100vw; /* Full width */
+	  min-height: 100vh; /* Full height */
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -240,7 +242,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 40%; /* Location of the box */
@@ -366,6 +368,11 @@
 		font-size: 4.8vw;
 	}
 
+	.mWordGap{
+    	display: inline-block;
+    	width: 0.5px;
+  	}
+
 	.mHrBlack{
 		position: relative;
 		border: none;
@@ -440,15 +447,17 @@
     bottom: -9px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
 	  padding-top: 10%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
+	  width: 100vw; /* Full width */
 	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -467,7 +476,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 12%; /* Location of the box */
@@ -592,6 +601,11 @@
 		font-size: 3.2vw;
 	}
 
+	.mWordGap{
+    	display: inline-block;
+    	width: 0.7px;
+  	}
+
 	.mHrBlack{
 		position: relative;
 		border: none;
@@ -665,15 +679,17 @@
     bottom: -10px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
 	  padding-top: 10%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
-	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  width: 100vw; /* Full width */
+	  min-height: 100vh; /* Full height */
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -692,7 +708,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 15%; /* Location of the box */
@@ -816,6 +832,10 @@
 		font-size: 2.7vw;
 	}
 
+	.mWordGap{
+    	display: inline-block;
+    	width: 0.7px;
+  	}
 
 	.mHrBlack{
 		position: relative;
@@ -890,15 +910,17 @@
     bottom: -10px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
 	  padding-top: 10%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
+	  width: 100vw; /* Full width */
 	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -917,7 +939,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 15%; /* Location of the box */
@@ -1041,6 +1063,10 @@
 		font-size: 2.7vw;
 	}
 
+	.mWordGap{
+    	display: inline-block;
+    	width: 0.7px;
+  	}
 
 	.mHrBlack{
 		position: relative;
@@ -1134,15 +1160,17 @@
     bottom: -15px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
 	  padding-top: 12.5%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
+	  width: 100vw; /* Full width */
 	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -1161,7 +1189,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 30%; /* Location of the box */
@@ -1286,6 +1314,11 @@
 		font-size: 3.65vw;
 	}
 
+	.mWordGap{
+   	 	display: inline-block;
+    	width: 0.6px;
+  	}
+
 	.mHrBlack{
 		position: relative;
 		border: none;
@@ -1377,15 +1410,17 @@
     bottom: -15px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
 	  padding-top: 12.5%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
+	  width: 100vw; /* Full width */
 	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -1404,7 +1439,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 15%; /* Location of the box */
@@ -1529,6 +1564,11 @@
 		font-size: 3.05vw;
 	}
 
+	.mWordGap{
+   	 	display: inline-block;
+    	width: 0.6px;
+  	}
+
 	.mHrBlack{
 		position: relative;
 		border: none;
@@ -1620,15 +1660,17 @@
     bottom: -20px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
 	  padding-top: 12.5%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
+	  width: 100vw; /* Full width */
 	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -1647,7 +1689,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 30%; /* Location of the box */
@@ -1772,6 +1814,11 @@
 		font-size: 3.4vw;
 	}
 
+	.mWordGap{
+	    display: inline-block;
+	   	width: 0.8px;
+	}
+
 	.mHrBlack{
 		position: relative;
 		border: none;
@@ -1845,15 +1892,17 @@
     bottom: -20px; }
 
 	.m-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 1; /* Sit on top */
 	  padding-top: 12.5%; /* Location of the box */
 	  left: 0;
 	  top: 0;
-	  width: 100%; /* Full width */
+	  width: 100vw; /* Full width */
 	  height: 100vh; /* Full height */
-	  overflow: auto; 
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  /*overflow: auto; */
 	  /*overflow: hidden;*/
 	  background-color: rgb(0,0,0); /* Fallback color */
 	  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
@@ -1872,7 +1921,7 @@
 	}
 
 	.mm-modal {
-	  display: none; /* Hidden by default */
+	  /*display: none;  Hidden by default */
 	  position: fixed; /* Stay in place */
 	  z-index: 2; /* Sit on top */
 	  padding-top: 20%; /* Location of the box */
@@ -1995,6 +2044,11 @@
 
 	.mTextMain{
 		font-size: 2.7vw;
+	}
+
+	.mWordGap{
+	    display: inline-block;
+	    width: 0.6px;
 	}
 
 	.mHrBlack{

@@ -175,7 +175,7 @@ class KMob extends React.Component{
 				<p><b className="mTextMain">{KEvent.date}</b></p>
 				<p><b className="mTextMain">{KEvent.desc.split('\n').map((item) => {
 					return <span key={(lineKey++).toString()+'mlk'}>{item.split(' ').map((sItem)=>{
-						return <span key={(spaceKey++).toString()+'msk'}>{sItem}&nbsp; </span>
+						return <span key={(spaceKey++).toString()+'msk'}>{sItem}<span className="mWordGap"/> </span>
 					})}<br/></span>
 				})}</b></p>
 			</div>
