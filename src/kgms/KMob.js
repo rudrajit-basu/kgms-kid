@@ -165,6 +165,15 @@ class KMob extends React.Component{
 	}
 
 	getMEventsFrom(){
+		// eslint-disable-next-line
+		let urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+		let isDynamicUrl = (str) => {
+			if(urlRegex.test(str)){
+				return <a rel="noopener noreferrer" href={str} target="_blank">{str}</a>;
+			} else {
+				return str;
+			}
+		}
 		let lineKey = 1;
 		let spaceKey = 1;
 		let divKey = 89;
@@ -175,7 +184,7 @@ class KMob extends React.Component{
 				<p><b className="mTextMain">{KEvent.date}</b></p>
 				<p><b className="mTextMain">{KEvent.desc.split('\n').map((item) => {
 					return <span key={(lineKey++).toString()+'mlk'}>{item.split(' ').map((sItem)=>{
-						return <span key={(spaceKey++).toString()+'msk'}>{sItem}<span className="mWordGap"/> </span>
+						return <span key={(spaceKey++).toString()+'msk'}>{isDynamicUrl(sItem)}<span className="mWordGap"/> </span>
 					})}<br/></span>
 				})}</b></p>
 			</div>

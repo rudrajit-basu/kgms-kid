@@ -140,6 +140,15 @@ class KDesk extends React.Component{
 
 
 	getEventsFrom(){
+		// eslint-disable-next-line
+		let urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+		let isDynamicUrl = (str) => {
+			if(urlRegex.test(str)){
+				return <a rel="noopener noreferrer" href={str} target="_blank">{str}</a>;
+			} else {
+				return str;
+			}
+		}
 		let lineKey = 1;
 		let spaceKey = 1;
 		let divKey = 88;
@@ -157,7 +166,7 @@ class KDesk extends React.Component{
 							<h4 style={{marginTop:'-10px'}} className="dMain dTextBlk">{KEvent.date}</h4>
 							<h4 style={{marginTop:'-5px'}} className="dMain dTextBlkDesc">{KEvent.desc.split('\n').map((item) => {
 								return <span key={(lineKey++).toString()+'lk'} className="spanStyl">{item.split(' ').map((sItem)=>{
-									return <span key={(spaceKey++).toString()+'sk'}>{sItem}<span className="dWordGap"/> </span>
+									return <span key={(spaceKey++).toString()+'sk'}>{isDynamicUrl(sItem)}<span className="dWordGap"/> </span>
 								})}<br/></span>
 							})}</h4>
 						</div>
@@ -465,11 +474,11 @@ class KDesk extends React.Component{
 						</div>
 						<br/> 
 						<div align="center" style={{marginLeft:"30px"}}>
-							<input type="image" src={B1} alt="B1" style={{width:"11.8%"}} className="Button"  name="home" onClick={this.handleButtonClick}/>
-							<input type="image" src={B2} alt="B2" style={{width:"11.8%",marginLeft:"40px"}} className="Button"  name="aboutus" onClick={this.handleButtonClick}/>
-							<input type="image" src={B3} alt="B3" style={{width:"11.8%",marginLeft:"40px"}} className="Button" name="events" onClick={this.handleButtonClick}/>
-							<input type="image" src={B4} alt="B4" style={{width:"11.8%",marginLeft:"40px"}} className="Button" name="programs" onClick={this.handleButtonClick}/>
-							<input type="image" src={B5} alt="B5" style={{width:"11.8%",marginLeft:"40px"}} className="Button" name="contactus" onClick={this.handleButtonClick}/>
+							<input type="image" src={B1} alt="B1" style={{width:"11.74%"}} className="Button"  name="home" onClick={this.handleButtonClick}/>
+							<input type="image" src={B2} alt="B2" style={{width:"11.74%",marginLeft:"40px"}} className="Button"  name="aboutus" onClick={this.handleButtonClick}/>
+							<input type="image" src={B3} alt="B3" style={{width:"11.74%",marginLeft:"40px"}} className="Button" name="events" onClick={this.handleButtonClick}/>
+							<input type="image" src={B4} alt="B4" style={{width:"11.74%",marginLeft:"40px"}} className="Button" name="programs" onClick={this.handleButtonClick}/>
+							<input type="image" src={B5} alt="B5" style={{width:"11.74%",marginLeft:"40px"}} className="Button" name="contactus" onClick={this.handleButtonClick}/>
 						</div>
 					</div>
 					<div className="Column HeaderRight noSelect">
