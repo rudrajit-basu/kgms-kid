@@ -23,6 +23,7 @@ import A3 from'./img/main/A3.png';
 import A4 from'./img/main/A4.png';
 import A5 from'./img/main/A5.png';
 import A6 from'./img/main/A6.png';
+import T2 from'./img/main/T2.png';
 import KSwipe from './KSwipe';
 import KData from './content/KData';
 import KMaps from './KMaps';
@@ -274,7 +275,7 @@ class KDesk extends React.Component{
 						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade"/>
 					</div>	
 					<div align="right" style={{marginTop:'100%'}}>
-						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"70%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade"/>
+						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade"/>
 					</div>
 				</div>
 			);
@@ -333,7 +334,7 @@ class KDesk extends React.Component{
 						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade"/>
 					</div>	
 					<div align="center" style={{marginTop:'120%'}}>
-						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"70%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade"/>
+						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade"/>
 					</div>
 				</div>
 			);
@@ -342,14 +343,32 @@ class KDesk extends React.Component{
 
 	getContent(button){
 		if(button==='home'){
+			let openLink = (link) => {
+				window.open(link);
+			}
 			return(
 				<div style={{marginLeft:"10px",marginRight:"10px",paddingBottom:"50px"}} className="pt-page-rotateUnfoldRight" key={button}>
 					<div style={{marginLeft:"10px",marginRight:"10px"}}>
-						<div align="left">
-							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'50%'}} className="noSelect"/>
-						</div /*O2 ends*/>
-						<div align="center" style={{marginTop:'50px'}}>
+						<div align="center">
+							<img src={T2} alt="kgms tag" style={{width:'55.5%'}} className="noSelect"/>
+						</div>
+						<div align="center" style={{marginTop:'38px'}}>
 							<KSwipe />
+						</div>
+						<div align="center" style={{marginTop:'45px'}}>
+							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'43%'}} className="noSelect"/>
+						</div>
+						<div align="center" style={{marginTop:'55px'}}>
+							<div className="Row">
+								<div className="Column" style={{width: '50%'}}>
+									<button className="dLoginButton" onClick={()=>openLink("https://khela-ghar-montessori-school.business.site/")}
+										>{'School Site >'}</button>
+								</div>
+								<div className="Column" style={{width: '50%'}}>
+									<button className="dLoginButton" onClick={()=>openLink("https://kgmskid-study.web.app/")}
+										>{'Student Login >'}</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -516,7 +535,7 @@ class KDesk extends React.Component{
 				<div className="Row" style={{marginTop:"40px"}}/*footer start*/>
 					<div className="Column Footer">
 						<div align="center">
-							<img src={F1} alt="footer" style={{width:"92vw"}} className="noSelect"/>
+							<img src={F1} alt="footer" style={{width:"75vw"}} className="noSelect"/>
 						</div>
 					</div>
 				</div /*footer end*/>

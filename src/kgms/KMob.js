@@ -12,6 +12,7 @@ import B4 from './img/main/B4.png';
 import B5 from './img/main/B5.png';
 import F1 from './img/main/F1.png';
 import AA from'./img/main/AA.png';
+import T1 from'./img/main/T1.png';
 import KData from './content/KData';
 import O2 from './img/main/O2.png';
 import KSwipe from './KSwipe';
@@ -195,14 +196,28 @@ class KMob extends React.Component{
 
 	getMContent(button){
 		if(button === 'home'){
+			let openLink = (link) => {
+				window.open(link);
+			}
 			return(
 				<div className="pt-page-rotateUnfoldRight" key={button}>
 					<div className="mBodyContent2">
 						<div align="center">
+							<img src={T1} alt="kgms tag" className="mTagImg"/>
+						</div>
+						<div align="center" className="mTextGap3">
+							<KSwipe />
+						</div>
+						<div align="center" className="mTextGap4">
 							<img src={O2} alt="ad" className="mAdImh"/>
 						</div>
-						<div align="center" className="mTextGap1">
-							<KSwipe />
+						<div align="center" className="mTextGap2">
+							<button className="mLoginButton" onClick={()=>openLink("https://kgmskid-study.web.app/")}
+								>{'Student Login >'}</button>
+						</div>
+						<div align="center" className="mTextGap2">
+							<button className="mLoginButton" onClick={()=>openLink("https://khela-ghar-montessori-school.business.site/")}
+								>{'School Site >'}</button>
 						</div>
 					</div>
 				</div>

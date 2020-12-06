@@ -29,8 +29,8 @@ class KSwipe extends React.Component{
 	constructor(props){
 		super(props);
 		this.slider = React.createRef();
-		this.next = React.createRef();
-		this.perv = React.createRef();
+		// this.next = React.createRef();
+		// this.perv = React.createRef();
 	}
 
 	componentDidMount(){
@@ -44,10 +44,10 @@ class KSwipe extends React.Component{
 			        		delay: 5400,
 			        		disableOnInteraction: false,
 			      		},
-			      		navigation: {
-			        		nextEl: this.next,
-			        		prevEl: this.perv,
-			      		},
+			      		// navigation: {
+			        // 		nextEl: this.next,
+			        // 		prevEl: this.perv,
+			      		// },
 			      		init: true,
 			      		direction: 'horizontal',
 					});
@@ -57,13 +57,6 @@ class KSwipe extends React.Component{
 	render(){
 		const bStyle = 'BorderRound swiperImg';
 		const mStyle = 'BorderRound mSwiperImg';
-		const bArrowL = 'arrow left';
-		const bArrowR = 'arrow right';
-		const mArrowL = 'mArrow left';
-		const mArrowR = 'mArrow right';
-		const bArrowHolder = 'arrowHolder arrowGap';
-		const mArrowHolder = 'arrowHolder mArrowGap';
-
 		
 		return (
 			<div className={isMobile ? mStyle : bStyle} >
@@ -71,10 +64,6 @@ class KSwipe extends React.Component{
 	    			<div className="swiper-wrapper BorderRound">
 	        			{imgItems}
 	    			</div> 
-	      		</div>
-	      		<div align="center" className={isMobile ? mArrowHolder : bArrowHolder}>
-	      			<i ref={p => this.perv = p} className={isMobile ? mArrowL : bArrowL}/>
-	      			<i ref={n => this.next = n} className={isMobile ? mArrowR : bArrowR}/>
 	      		</div>	
 	    	</div>
 		);

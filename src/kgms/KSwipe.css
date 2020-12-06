@@ -228,8 +228,8 @@ arrow.left:before, .arrow.right:before, .arrow.left:after {
 }
 
 .swiperImg{
-  width: 56vw;
-  height: 44vh;
+  width: 55vw;
+  height: 45vh;
 }
 
 /*-----------------------mobile arrew--------------------------------------------*/
@@ -422,7 +422,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
 }
   .mSwiperImg{
     width: 80vw;
-    height: 22vh;
+    height: 40vw;
+    /*height: 22vh;*/
   }
 
  .mArrowGap{
@@ -510,7 +511,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
 }
   .mSwiperImg{
     width: 77vw;
-    height: 59vh;
+    height: 33vw;
+    /*height: 59vh;*/
   }
 
   .mArrowGap{
@@ -608,7 +610,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
   }
   .mSwiperImg{
     width: 77vw;
-    height: 60vh;
+    height: 33vw;
+    /*height: 60vh;*/
   }
 
   .mArrowGap{
@@ -693,7 +696,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
   }
   .mSwiperImg{
     width: 75vw;
-    height: 27vh;
+    height: 36vw;
+    /*height: 27vh;*/
   }
 
   .mArrowGap{
@@ -779,7 +783,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
   }
   .mSwiperImg{
     width: 75vw;
-    height: 60vh;
+    height: 36vw;
+    /*height: 60vh;*/
   }
 
   .mArrowGap{
@@ -865,7 +870,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
 
   .mSwiperImg{
     width: 75vw;
-    height: 27vh;
+    height: 36vw;
+    /*height: 27vh;*/
   }
 
   .mArrowGap{
@@ -938,7 +944,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
 
   .mSwiperImg{
     width: 75vw;
-    height: 55vh;
+    height: 36vw;
+    /*height: 55vh;*/
   }
 
   .mArrowGap{

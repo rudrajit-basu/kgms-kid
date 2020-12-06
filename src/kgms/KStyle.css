@@ -375,3 +375,26 @@
   display: inline-block;
   width: 0.4px;
 }
+
+.dLoginButton{
+		background: transparent;
+		outline: none;
+		border: 2px solid black;
+		padding: 1.35vw;
+		border-radius: 20%;
+		font-size: 1.05vw;
+		font-weight: bold;
+		letter-spacing: 1.1px;
+		word-spacing: 1.1px;
+		cursor: pointer;
+	}
+
+.dLoginButton:hover{
+	outline: none;
+	background: rgba(0,0,0,0.4);
+}
+
+.dLoginButton:active{
+	outline: none;
+	transform: translateY(4px);
+}	
