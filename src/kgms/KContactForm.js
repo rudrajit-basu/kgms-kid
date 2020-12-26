@@ -39,7 +39,7 @@ class KContactForm extends React.Component{
 		.then((result) => {
 			if(result.status === 200){
 				// console.log(result.message);
-				this.setState({isKCModal:false});
+				this.setState({nameV:'',phoneV:'',emailV:'',msgV:'',isKCModal:false});
 				this.props.startModal('Message sent successfully !');
 			} else {
 				this.setState({isKCModal:false});
