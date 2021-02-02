@@ -29,6 +29,7 @@ import KData from './content/KData';
 import KMaps from './KMaps';
 import KContactForm from './KContactForm';
 import "firebase/firestore";
+import "firebase/analytics";
 
 // const img_HF = [{id:4,src:H1,alt:'H1'},{id:5,src:H2,alt:'H2'},{id:6,src:H3,alt:'H3'},{id:7,src:F1,alt:'F1'}];
 // const img_B = [{id:20,src:B1,alt:'B1'},{id:21,src:B2,alt:'B2'},{id:22,src:B3,alt:'B3'},{id:23,src:B4,alt:'B4'},{id:24,src:B5,alt:'B5'}];
@@ -96,6 +97,11 @@ class KDesk extends React.Component{
 
 
 	componentDidMount(){
+		try{
+			this.props.firebase.analytics();
+		}catch(e){
+			console.error(e);
+		}
 		window.addEventListener('popstate', this.handleHistoryPop,false);
 		window.history.replaceState({page: this.state.currentButton},'','');
 		this.kRefreshInfo = () => {

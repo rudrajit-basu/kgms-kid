@@ -19,6 +19,7 @@ import KSwipe from './KSwipe';
 import KMaps from './KMaps';
 import KContactForm from './KContactForm';
 import "firebase/firestore";
+import "firebase/analytics";
 
 const kmJsonData = KData;
 
@@ -126,6 +127,11 @@ class KMob extends React.Component{
 	}
 
 	componentDidMount(){
+		try{
+			this.props.firebase.analytics();
+		}catch(e){
+			console.error(e);
+		}
 		window.addEventListener('popstate', this.handleMHistoryPop, false);
 		window.history.replaceState({mPage: this.state.currentMButton},'','');
 		this.kMRefreshInfo = () => {
