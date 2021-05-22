@@ -20,9 +20,10 @@ const imgArray = [{id:1,src:"https://lh3.googleusercontent.com/PiGPB1yiiEiZug_xE
 				  {id:12,src:"https://lh3.googleusercontent.com/ySdAkyfu6rP4GISRNg5snJv6-KZVF9soFnHM9Jbs798918mwrU7jjC9TyQx4nqj1bLrfq_d5u53e9gD0LxwTk8iNM2ZglN_t2umOmrFI-gglGYOnmzcxctC8YFtrEV_6wIa3GDYC4g=w2400",alt:"image12"},
 				  {id:13,src:"https://lh3.googleusercontent.com/yWxKRBsnxLoCa7hrK36Hk0ui6X9qBS9GNfMfWJqftjwTfdUkDsDos_eEK5DT0Fn1Z0KVlnYZM03W_56Kh6EiACGO8e-A_1tOI3dRCKVpW5Dh1SGACeYGxx-xj451VYpDeZXCZwK-7A=w2400",alt:"image13"}];
 
-const imgItems = imgArray.map((img) =>
-			<img src={img.src} key={img.id.toString()} alt={img.alt} className="noSelect swiper-slide BorderRound" />
-		);
+const imgItems = imgArray.map((img) => {
+			return(<img src={img.src} key={img.id.toString()} alt={img.alt} 
+				className="noSelect swiper-slide BorderRound" referrerPolicy="same-origin"/>);
+		});
 
 class KSwipe extends React.Component{
 	

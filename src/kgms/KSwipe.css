@@ -1015,3 +1015,8 @@ mArrow.left:before, .mArrow.right:before, .mArrow.left:after {
     -webkit-tap-highlight-color: transparent;
 }
 
+.verticalAlignCenter{
+  /*-ms-transform: translateY(-50%);
+  transform: translateY(-50%);*/
+  vertical-align: baseline;
+}

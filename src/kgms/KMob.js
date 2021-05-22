@@ -27,9 +27,10 @@ class KMob extends React.Component{
 
 	constructor(props){
 		super(props);
-		this.state = {isHamB:false, currentMButton: 'home',ismModal:false,mmodalMsg:'',
-						mKEvents:[{id:0,header:"Please wait... Fetching Events >>",date:"",desc:""}],
-						ismEvenTrig:false,mEventNum:0};
+		this.state = {isHamB:false, currentMButton: 'home', ismModal:false, mmodalMsg:'',
+						mKEvents:[{id:0, header:"Please wait... Fetching Events >>", date:"", desc:""}],
+						ismEvenTrig:false, mEventNum:0, ismSunAnimate: false, ismMainHeaderAnimate: false,
+						ismFooterAnimation: false};
 		this.handleHamB = this.handleHamB.bind(this);
 		this.handleModalButton = this.handleModalButton.bind(this);
 		this.handleMButtonClick = this.handleMButtonClick.bind(this);
@@ -39,10 +40,13 @@ class KMob extends React.Component{
 		this.mFetchEvents = this.mFetchEvents.bind(this);
 		this.handleMHistoryPop = this.handleMHistoryPop.bind(this);
 		this.getMEventsFrom = this.getMEventsFrom.bind(this);
+		this.handleSunAnimation = this.handleSunAnimation.bind(this);
+		this.handleMainHeaderAnimation = this.handleMainHeaderAnimation.bind(this);
+		this.handleFooterAnimation = this.handleFooterAnimation.bind(this);
 	}
 
 	async mFetchEvents(){
-		let db = this.props.firebase.firestore();
+		const db = this.props.firebase.firestore();
 		let unsubscribe = db.collection("kgms-events").orderBy("tagId")
 							.onSnapshot((querySnapshot) => {
 								let kevents = [];
@@ -127,17 +131,17 @@ class KMob extends React.Component{
 	}
 
 	componentDidMount(){
-		try{
-			this.props.firebase.analytics();
-		}catch(e){
-			console.error(e);
-		}
 		window.addEventListener('popstate', this.handleMHistoryPop, false);
 		window.history.replaceState({mPage: this.state.currentMButton},'','');
 		this.kMRefreshInfo = () => {
 			this.handleMModalStart('Please close and re-start the website to get new content !');
 		};
 		window.addEventListener('kRefresh', this.kMRefreshInfo, false);
+		try{
+			this.props.firebase.analytics();
+		}catch(e){
+			console.error(e);
+		}
 	}
 
 	componentWillUnmount(){
@@ -158,6 +162,37 @@ class KMob extends React.Component{
 		}
 	}
 
+	async handleSunAnimation(event) {
+		if(event.target.classList !== null && event.target.classList !== undefined) {
+			if(!event.target.classList.contains('mImageRotate')){
+				event.target.classList.add('mImageRotate');
+			} else {
+				this.setState(prevState=>({ismSunAnimate: !prevState.ismSunAnimate}));
+			}
+
+			if(event.target.classList.contains('mImageRotateDelay')){
+				event.target.classList.remove('mImageRotateDelay');
+			}
+		}
+		event.preventDefault();
+	}
+
+	async handleMainHeaderAnimation(event) {
+		if(event.target.classList !== null && event.target.classList !== undefined) {
+			if(!event.target.classList.contains('mImageFlash')){
+				event.target.classList.add('mImageFlash');
+			} else {
+				this.setState(prevState=>({ismMainHeaderAnimate: !prevState.ismMainHeaderAnimate}));
+			}
+		}
+		event.preventDefault();
+	}
+
+	async handleFooterAnimation(event) {
+		this.setState(prevState=>({ismFooterAnimation: !prevState.ismFooterAnimation}));
+		event.preventDefault();
+	}
+
 	async handleMButtonClick(event){
 		this.handleHamB(event);		
 
@@ -173,8 +208,8 @@ class KMob extends React.Component{
 
 	getMEventsFrom(){
 		// eslint-disable-next-line
-		let urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
-		let isDynamicUrl = (str) => {
+		const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+		const isDynamicUrl = (str) => {
 			if(urlRegex.test(str)){
 				return <a rel="noopener noreferrer" href={str} target="_blank">{str}</a>;
 			} else {
@@ -184,7 +219,7 @@ class KMob extends React.Component{
 		let lineKey = 1;
 		let spaceKey = 1;
 		let divKey = 89;
-		let eventListItems = this.state.mKEvents.map((KEvent) =>
+		const eventListItems = this.state.mKEvents.map((KEvent) =>
 			<div className="mTextBlk" key={(divKey++).toString()+'gmef'}>
 				<p className="mTextGap2"><b className="mNoticeDec mTextSubHead">{KEvent.id}</b></p>
 				<p ><b className="mTextSubHead">{KEvent.header}</b></p>
@@ -202,20 +237,20 @@ class KMob extends React.Component{
 
 	getMContent(button){
 		if(button === 'home'){
-			let openLink = (link) => {
+			const openLink = (link) => {
 				window.open(link);
 			}
 			return(
 				<div className="pt-page-rotateUnfoldRight" key={button}>
 					<div className="mBodyContent2">
 						<div align="center">
-							<img src={T1} alt="kgms tag" className="mTagImg"/>
+							<img src={T1} alt="kgms tag" className="mTagImg" referrerPolicy="same-origin"/>
 						</div>
 						<div align="center" className="mTextGap3">
 							<KSwipe />
 						</div>
 						<div align="center" className="mTextGap4">
-							<img src={O2} alt="ad" className="mAdImh"/>
+							<img src={O2} alt="ad" className="mAdImh" referrerPolicy="same-origin"/>
 						</div>
 						<div align="center" className="mTextGap2">
 							<button className="mLoginButton" onClick={()=>openLink("https://kgmskid-study.web.app/")}
@@ -240,7 +275,7 @@ class KMob extends React.Component{
 						</div>
 						<div align="center" className="mTextGap3">
 							<p align="center" className="mAbtusTag mTextSubHead"><b>|/ FACILITIES \|</b></p>
-							<img src={AA} alt="AA" className="noSelect mAbtUsImg"/>
+							<img src={AA} alt="AA" className="noSelect mAbtUsImg" referrerPolicy="same-origin"/>
 						</div>
 					</div>
 				</div>
@@ -338,7 +373,8 @@ class KMob extends React.Component{
 							</div>
 						</div>
 						<div className="Column TopRight" align="right">
-							<img src={H4} alt="sun" className="mSun noSelect"/>
+							<img src={H4} alt="sun" onClick={this.handleSunAnimation} key={`mSunA${this.state.ismSunAnimate.toString()}`}
+								className="mSun noSelect mImageRotateDelay" referrerPolicy="same-origin"/>
 						</div>
 					</div>
 					<div className="m-modal" style={this.state.isHamB ? {display:'block'} : {display:'none'}}  align="center" /*Button Modal Start*/>
@@ -364,7 +400,8 @@ class KMob extends React.Component{
 					</div /*Button Modal End*/>	
 				</div /*header1 end*/>
 				<div align="left" className="hDiv" /*header2 start*/>
-					<img src={HHM} alt="khela ghar title" className="mH1 noSelect"/>
+					<img src={HHM} alt="khela ghar title" className="mH1 noSelect" referrerPolicy="same-origin"
+						key={`mHHMA${this.state.ismMainHeaderAnimate.toString()}`} onClick={this.handleMainHeaderAnimation}/>
 				</div /*header2 end*/>
 				<div style={{width:'100%'}} /*body start*/>
 					<div className="mBodyContent1">
@@ -383,8 +420,13 @@ class KMob extends React.Component{
     					</div>
   					</div>
 				</div /*modal end*/>
-				<div align="center" style={{marginTop:'2em'}} /*footer start*/>
-					<img src={F1} alt="footer" className="mFooter mTextGap3 noSelect"/>
+				<div align="center" style={{marginTop:'2em'}} onClick={this.handleFooterAnimation} /*footer start*/>
+					<div align="center">
+						<span style={{visibility: this.state.ismFooterAnimation ? 'visible' : 'hidden'}}
+							className="mFooterTip mTextMain">&#169; {'Khela Ghar Montessory School, 2021'}</span>
+					</div>
+					<img src={F1} alt="footer" className="mFooter mTextGap3 noSelect" referrerPolicy="same-origin"
+						key="mFA"/>
 				</div /*footer ends*/>
 			</div /*app end*/>
 		);

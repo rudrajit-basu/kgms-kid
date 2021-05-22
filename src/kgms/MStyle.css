@@ -198,7 +198,7 @@
 		display: inline-block;
 		padding: 0.1em 0.25em;
 		border-radius: 0.3em;
-	}		
+	}
 
 
 /* Extra small devices (phones, 600px and down) */
@@ -467,6 +467,20 @@
 		word-spacing: 1.5px;
 	}
 
+	.mFooterTip{
+		/*position: absolute;
+		bottom: -29.5%;
+		left: 10%;*/
+		/*visibility: hidden;*/
+		position: relative;
+		background-color: rgba(0,0,0,0.7);
+		color: #fff;
+		text-align: center;
+		letter-spacing: 1.1;
+		padding: 0.25em 0.5em;
+		border-radius: 0.3em;
+	}
+
 }
 
 @media only screen and (max-width: 600px) and (orientation: landscape) {
@@ -725,6 +739,32 @@
 		font-weight: bold;
 		letter-spacing: 1.5px;
 		word-spacing: 1.5px;
+	}
+
+	.mFooterTip{
+		position: absolute;
+		bottom: -185%;
+		left: 10%;
+		background-color: rgba(0,0,0,0.7);
+		color: #fff;
+		text-align: center;
+		letter-spacing: 1.1;
+		padding: 0.25em 0.5em;
+		border-radius: 0.3em;
+	}
+
+	.mFooterTip{
+		/*position: absolute;
+		bottom: -29.5%;
+		left: 10%;*/
+		/*visibility: hidden;*/
+		position: relative;
+		background-color: rgba(0,0,0,0.7);
+		color: #fff;
+		text-align: center;
+		letter-spacing: 1.1;
+		padding: 0.25em 0.5em;
+		border-radius: 0.3em;
 	}
 }
 
@@ -1221,6 +1261,20 @@
 		letter-spacing: 1.5px;
 		word-spacing: 1.5px;
 	}
+
+	.mFooterTip{
+		/*position: absolute;
+		bottom: -29.5%;
+		left: 10%;*/
+		/*visibility: hidden;*/
+		position: relative;
+		background-color: rgba(0,0,0,0.7);
+		color: #fff;
+		text-align: center;
+		letter-spacing: 1.1;
+		padding: 0.25em 0.5em;
+		border-radius: 0.3em;
+	}
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -1483,6 +1537,20 @@
 		font-weight: bold;
 		letter-spacing: 3px;
 		word-spacing: 3px;
+	}
+
+	.mFooterTip{
+		/*position: absolute;
+		bottom: -29.5%;
+		left: 10%;*/
+		/*visibility: hidden;*/
+		position: relative;
+		background-color: rgba(0,0,0,0.7);
+		color: #fff;
+		text-align: center;
+		letter-spacing: 1.1;
+		padding: 0.25em 0.5em;
+		border-radius: 0.3em;
 	}
 }
 
@@ -2343,4 +2411,60 @@
 .mLoginButton:active{
 	outline: none;
 	transform: translateY(4.1px);
+}
+
+.mImageRotateDelay{
+	-webkit-animation:spin 4s linear 2.5s 1;
+	-moz-animation:spin 4s linear 2.5s 1;
+	animation:spin 4s linear 2.5s 1;
+}
+
+.mImageRotate{
+	-webkit-animation:spin 4s linear 1;
+	-moz-animation:spin 4s linear 1;
+	animation:spin 4s linear 1;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+.mImageShake{
+	-webkit-animation:shake 1s ease-in-out 1;
+	-moz-animation:shake 1s ease-in-out 1;
+	animation:shake 1s ease-in-out 1;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.mImageFlash{
+	-webkit-animation:flash 2s ease-in-out 1;
+	-moz-animation:flash 2s ease-in-out 1;
+	animation:flash 2s ease-in-out 1;
+}
+
+@keyframes flash {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
 }

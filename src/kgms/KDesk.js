@@ -36,15 +36,15 @@ import "firebase/analytics";
 const img_M = [{id:15,src:M1,alt:'M1'},{id:16,src:M2,alt:'M2'},{id:17,src:M3,alt:'M3'}];
 const img_O = [{id:10,src:O1,alt:'O1'},{id:11,src:O2,alt:'O2'},{id:12,src:O3,alt:'O3'}];
 // const img_A = [{id:26,src:A1,alt:'A1'},{id:27,src:A2,alt:'A2'},{id:28,src:A3,alt:'A3'},{id:29,src:A4,alt:'A4'},{id:30,src:A5,alt:'A5'},{id:31,src:A6,alt:'A6'}];
-const eImgL1 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade"/>;
-const eImgL2 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>; 
-const eImgL3 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade"/>;
-const eImgL4 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>;
+const eImgL1 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
+const eImgL2 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>; 
+const eImgL3 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
+const eImgL4 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
 
-const eImgR1 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade"/>;
-const eImgR2 = <img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade"/>;
-const eImgR3 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>;
-const eImgR4 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>;
+const eImgR1 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
+const eImgR2 = <img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
+const eImgR3 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
+const eImgR4 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
 
 const imgArrL = [eImgL1,eImgL2,eImgL3,eImgL4];
 const imgArrR = [eImgR1,eImgR2,eImgR3,eImgR4];
@@ -72,7 +72,7 @@ class KDesk extends React.Component{
 
 
 	async fetchEvents(){
-		let db = this.props.firebase.firestore();
+		const db = this.props.firebase.firestore();
 		db.collection("kgms-events").orderBy("tagId")
 			.onSnapshot((querySnapshot) => {
 				let kevents = [];
@@ -97,17 +97,17 @@ class KDesk extends React.Component{
 
 
 	componentDidMount(){
-		try{
-			this.props.firebase.analytics();
-		}catch(e){
-			console.error(e);
-		}
 		window.addEventListener('popstate', this.handleHistoryPop,false);
 		window.history.replaceState({page: this.state.currentButton},'','');
 		this.kRefreshInfo = () => {
 			this.handleModalStart('Please close and re-start the website to get new content !');
 		};
 		window.addEventListener('kRefresh', this.kRefreshInfo, false);
+		try{
+			this.props.firebase.analytics();
+		}catch(e){
+			console.error(e);
+		}
 	}
 
 	componentWillUnmount(){
@@ -148,8 +148,8 @@ class KDesk extends React.Component{
 
 	getEventsFrom(){
 		// eslint-disable-next-line
-		let urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
-		let isDynamicUrl = (str) => {
+		const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
+		const isDynamicUrl = (str) => {
 			if(urlRegex.test(str)){
 				return <a rel="noopener noreferrer" href={str} target="_blank">{str}</a>;
 			} else {
@@ -159,7 +159,7 @@ class KDesk extends React.Component{
 		let lineKey = 1;
 		let spaceKey = 1;
 		let divKey = 88;
-		let eventListItems = this.state.KEvents.map((KEvent) => {
+		const eventListItems = this.state.KEvents.map((KEvent) => {
 			// i++;
 			// let refName = 'fEvent' + i.toString(); ref={f => this[`${'fEvent' + i.toString()}_ref`] = f}
 			return (
@@ -190,10 +190,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'20%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.3%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.3%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 					<div align="left" style={{marginTop:'75%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 				</div>
 			);
@@ -201,16 +201,16 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'0%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>	
 					<div align="center" style={{marginTop:'120%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 				</div>
 			);
 		} else if(button==='events'){
 			let rNum = 1;
-			let decoR = this.state.kBodyNum.map((dList)=>{
+			const decoR = this.state.kBodyNum.map((dList)=>{
 				if(rNum === 4){
 					rNum = 0;
 				}
@@ -232,13 +232,13 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'140%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>	
 					<div align="center" style={{marginTop:'250%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 					<div align="center" style={{marginTop:'240%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 				</div>
 			);
@@ -246,10 +246,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'25%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>	
 					<div align="center" style={{marginTop:'125%'}}>
-						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 				</div>
 			);
@@ -278,10 +278,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'20%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>	
 					<div align="right" style={{marginTop:'100%'}}>
-						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade"/>
+						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 				</div>
 			);
@@ -289,16 +289,16 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'40%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 					<div align="center" style={{marginTop:'150%'}}>
-						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade"/>
+						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>	
 				</div>
 			);
 		} else if(button==='events'){
 			let lNum = 1;
-			let decoL = this.state.kBodyNum.map((dList)=>{
+			const decoL = this.state.kBodyNum.map((dList)=>{
 				if(lNum === 4){
 					lNum = 0;
 				}
@@ -320,16 +320,16 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'10%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 					<div align="center" style={{marginTop:'210%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 					<div align="center" style={{marginTop:'240%'}}>
-						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade"/>
+						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 					<div align="center" style={{marginTop:'240%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 				</div>
 			);
@@ -337,10 +337,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'10%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>	
 					<div align="center" style={{marginTop:'120%'}}>
-						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade"/>
+						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
 					</div>
 				</div>
 			);
@@ -349,20 +349,20 @@ class KDesk extends React.Component{
 
 	getContent(button){
 		if(button==='home'){
-			let openLink = (link) => {
+			const openLink = (link) => {
 				window.open(link);
 			}
 			return(
 				<div style={{marginLeft:"10px",marginRight:"10px",paddingBottom:"50px"}} className="pt-page-rotateUnfoldRight" key={button}>
 					<div style={{marginLeft:"10px",marginRight:"10px"}}>
 						<div align="center">
-							<img src={T2} alt="kgms tag" style={{width:'55.5%'}} className="noSelect"/>
+							<img src={T2} alt="kgms tag" style={{width:'55.7%'}} className="noSelect" referrerPolicy="same-origin"/>
 						</div>
 						<div align="center" style={{marginTop:'38px'}}>
 							<KSwipe />
 						</div>
 						<div align="center" style={{marginTop:'45px'}}>
-							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'43%'}} className="noSelect"/>
+							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'43%'}} className="noSelect" referrerPolicy="same-origin"/>
 						</div>
 						<div align="center" style={{marginTop:'55px'}}>
 							<div className="Row">
@@ -392,14 +392,14 @@ class KDesk extends React.Component{
 								<div style={{marginTop:'25px'}}>
 									<h3 align="center" className="AbtusTag">|/ FACILITIES \|</h3>
 									<div align="center" style={{marginTop:'20px'}} className="noSelect">
-										<img src={A1} alt="A1" style={{height:'45px'}} />
-										<img src={A2} alt="A2" style={{height:'45px'}} />
-										<img src={A3} alt="A3" style={{height:'45px'}} />
+										<img src={A1} alt="A1" style={{height:'45px'}} referrerPolicy="same-origin"/>
+										<img src={A2} alt="A2" style={{height:'45px'}} referrerPolicy="same-origin"/>
+										<img src={A3} alt="A3" style={{height:'45px'}} referrerPolicy="same-origin"/>
 									</div>
 									<div align="center" style={{marginTop:'10px', marginBottom:'10px'}} className="noSelect">
-										<img src={A6} alt="A6" style={{height:'45px'}} />
-										<img src={A5} alt="A5" style={{height:'45px'}} />
-										<img src={A4} alt="A4" style={{height:'45px'}} />
+										<img src={A6} alt="A6" style={{height:'45px'}} referrerPolicy="same-origin"/>
+										<img src={A5} alt="A5" style={{height:'45px'}} referrerPolicy="same-origin"/>
+										<img src={A4} alt="A4" style={{height:'45px'}} referrerPolicy="same-origin"/>
 									</div>
 								</div>			
 							</div>
@@ -494,8 +494,9 @@ class KDesk extends React.Component{
 			<div className="App" /*app start*/>
 				<div className="Row" /*header start*/>
 					<div className="Column HeaderLeft noSelect"> 
-						<div style={{marginLeft:"30px",marginTop:"28px"}}>
-							<img src={HH} alt="khela ghar title" style={{width:"72%"}} />
+						<div style={{marginLeft:"30px", marginTop:"30px", marginBottom: "10px"}}>
+							<img src={HH} alt="khela ghar title" style={{width:"72%"}} 
+								referrerPolicy="same-origin" className="dImageFlash" key="dHHM"/>
 						</div>
 						<br/> 
 						<div align="center" style={{marginLeft:"30px"}}>
@@ -508,7 +509,8 @@ class KDesk extends React.Component{
 					</div>
 					<div className="Column HeaderRight noSelect">
 						<div style={{marginLeft:"2px",marginTop:"18px"}}> 
-							<img src={H4} alt="sun" style={{width:"70%"}}/>
+							<img src={H4} alt="sun" style={{width:"70%"}} className="dImageRotate" 
+								referrerPolicy="same-origin" key="dHSun"/>
 						</div>
 					</div>	
 				</div /*header end*/>
@@ -538,10 +540,15 @@ class KDesk extends React.Component{
     					</div>
   					</div>
 				</div /*modal end*/>
-				<div className="Row" style={{marginTop:"40px"}}/*footer start*/>
-					<div className="Column Footer">
+				<div className="Row" style={{marginTop:"60px"}}/*footer start*/>
+					<div className="Column Footer dFooterContainer">
 						<div align="center">
-							<img src={F1} alt="footer" style={{width:"75vw"}} className="noSelect"/>
+							<span className="footerTip">&#169; {'Khela Ghar Montessory School, 2021'}</span>
+						</div>
+						<div align="center">
+							<img src={F1} alt="footer" style={{width:"75vw"}} key="dFA"
+								className="noSelect" referrerPolicy="same-origin">
+							</img>
 						</div>
 					</div>
 				</div /*footer end*/>
