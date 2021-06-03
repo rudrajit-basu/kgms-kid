@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './KStyle.css';
 import HH from './img/main/HH.png';
 // import H1 from './img/main/H1.png';
@@ -24,27 +24,31 @@ import A4 from'./img/main/A4.png';
 import A5 from'./img/main/A5.png';
 import A6 from'./img/main/A6.png';
 import T2 from'./img/main/T2.png';
-import KSwipe from './KSwipe';
+// import KSwipe from './KSwipe';
 import KData from './content/KData';
-import KMaps from './KMaps';
-import KContactForm from './KContactForm';
+// import KMaps from './KMaps';
+// import KContactForm from './KContactForm';
 import "firebase/firestore";
 import "firebase/analytics";
+
+const KSwipe = React.lazy(() => import('./KSwipe'));
+const KMaps = React.lazy(() => import('./KMaps'));
+const KContactForm = React.lazy(() => import('./KContactForm'));
 
 // const img_HF = [{id:4,src:H1,alt:'H1'},{id:5,src:H2,alt:'H2'},{id:6,src:H3,alt:'H3'},{id:7,src:F1,alt:'F1'}];
 // const img_B = [{id:20,src:B1,alt:'B1'},{id:21,src:B2,alt:'B2'},{id:22,src:B3,alt:'B3'},{id:23,src:B4,alt:'B4'},{id:24,src:B5,alt:'B5'}];
 const img_M = [{id:15,src:M1,alt:'M1'},{id:16,src:M2,alt:'M2'},{id:17,src:M3,alt:'M3'}];
 const img_O = [{id:10,src:O1,alt:'O1'},{id:11,src:O2,alt:'O2'},{id:12,src:O3,alt:'O3'}];
 // const img_A = [{id:26,src:A1,alt:'A1'},{id:27,src:A2,alt:'A2'},{id:28,src:A3,alt:'A3'},{id:29,src:A4,alt:'A4'},{id:30,src:A5,alt:'A5'},{id:31,src:A6,alt:'A6'}];
-const eImgL1 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
-const eImgL2 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>; 
-const eImgL3 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
-const eImgL4 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
+const eImgL1 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>;
+const eImgL2 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>; 
+const eImgL3 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>;
+const eImgL4 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>;
 
-const eImgR1 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
-const eImgR2 = <img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
-const eImgR3 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
-const eImgR4 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>;
+const eImgR1 = <img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>;
+const eImgR2 = <img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>;
+const eImgR3 = <img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>;
+const eImgR4 = <img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>;
 
 const imgArrL = [eImgL1,eImgL2,eImgL3,eImgL4];
 const imgArrR = [eImgR1,eImgR2,eImgR3,eImgR4];
@@ -190,10 +194,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'20%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.3%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.3%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 					<div align="left" style={{marginTop:'75%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 				</div>
 			);
@@ -201,10 +205,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'0%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>	
 					<div align="center" style={{marginTop:'120%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 				</div>
 			);
@@ -232,13 +236,13 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'140%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>	
 					<div align="center" style={{marginTop:'250%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 					<div align="center" style={{marginTop:'240%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 				</div>
 			);
@@ -246,10 +250,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'25%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>	
 					<div align="center" style={{marginTop:'125%'}}>
-						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 				</div>
 			);
@@ -278,10 +282,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'20%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>	
 					<div align="right" style={{marginTop:'100%'}}>
-						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 				</div>
 			);
@@ -289,10 +293,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'40%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 					<div align="center" style={{marginTop:'150%'}}>
-						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>	
 				</div>
 			);
@@ -320,16 +324,16 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'10%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 					<div align="center" style={{marginTop:'210%'}}>
-						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect ImgFlip pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 					<div align="center" style={{marginTop:'240%'}}>
-						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_O[2].src} alt={img_O[2].alt} style={{width:"55%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 					<div align="center" style={{marginTop:'240%'}}>
-						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.4%"}} className="noSelect ImgTilt3 pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 				</div>
 			);
@@ -337,10 +341,10 @@ class KDesk extends React.Component{
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'10%'}}>
-						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_M[2].src} alt={img_M[2].alt} style={{width:"23%"}} className="noSelect ImgTilt2 pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>	
 					<div align="center" style={{marginTop:'120%'}}>
-						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade" referrerPolicy="same-origin"/>
+						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
 				</div>
 			);
@@ -348,6 +352,7 @@ class KDesk extends React.Component{
 	}
 
 	getContent(button){
+		const suspenseLoading = <div style={{fontSize:'1.195em'}} align='center'>Loading...</div>;
 		if(button==='home'){
 			const openLink = (link) => {
 				window.open(link);
@@ -356,13 +361,15 @@ class KDesk extends React.Component{
 				<div style={{marginLeft:"10px",marginRight:"10px",paddingBottom:"50px"}} className="pt-page-rotateUnfoldRight" key={button}>
 					<div style={{marginLeft:"10px",marginRight:"10px"}}>
 						<div align="center">
-							<img src={T2} alt="kgms tag" style={{width:'55.7%'}} className="noSelect" referrerPolicy="same-origin"/>
+							<img src={T2} alt="kgms tag" style={{width:'55.7%'}} className="noSelect" referrerPolicy="same-origin" loading="lazy"/>
 						</div>
+						<Suspense fallback={suspenseLoading}>
 						<div align="center" style={{marginTop:'38px'}}>
 							<KSwipe />
 						</div>
+						</Suspense>
 						<div align="center" style={{marginTop:'45px'}}>
-							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'43%'}} className="noSelect" referrerPolicy="same-origin"/>
+							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'43%'}} className="noSelect" referrerPolicy="same-origin" loading="lazy"/>
 						</div>
 						<div align="center" style={{marginTop:'55px'}}>
 							<div className="Row">
@@ -392,14 +399,14 @@ class KDesk extends React.Component{
 								<div style={{marginTop:'25px'}}>
 									<h3 align="center" className="AbtusTag">|/ FACILITIES \|</h3>
 									<div align="center" style={{marginTop:'20px'}} className="noSelect">
-										<img src={A1} alt="A1" style={{height:'45px'}} referrerPolicy="same-origin"/>
-										<img src={A2} alt="A2" style={{height:'45px'}} referrerPolicy="same-origin"/>
-										<img src={A3} alt="A3" style={{height:'45px'}} referrerPolicy="same-origin"/>
+										<img src={A1} alt="A1" style={{height:'45px'}} referrerPolicy="same-origin" loading="lazy"/>
+										<img src={A2} alt="A2" style={{height:'45px'}} referrerPolicy="same-origin" loading="lazy"/>
+										<img src={A3} alt="A3" style={{height:'45px'}} referrerPolicy="same-origin" loading="lazy"/>
 									</div>
 									<div align="center" style={{marginTop:'10px', marginBottom:'10px'}} className="noSelect">
-										<img src={A6} alt="A6" style={{height:'45px'}} referrerPolicy="same-origin"/>
-										<img src={A5} alt="A5" style={{height:'45px'}} referrerPolicy="same-origin"/>
-										<img src={A4} alt="A4" style={{height:'45px'}} referrerPolicy="same-origin"/>
+										<img src={A6} alt="A6" style={{height:'45px'}} referrerPolicy="same-origin" loading="lazy"/>
+										<img src={A5} alt="A5" style={{height:'45px'}} referrerPolicy="same-origin" loading="lazy"/>
+										<img src={A4} alt="A4" style={{height:'45px'}} referrerPolicy="same-origin" loading="lazy"/>
 									</div>
 								</div>			
 							</div>
@@ -469,6 +476,7 @@ class KDesk extends React.Component{
 			return(
 				<div className="SeaBlue BoxShadow BorderRound pt-page-rotateUnfoldRight" style={{marginLeft:"10px",marginRight:"10px",paddingTop:"20px",paddingBottom:"25px"}} key={button}>
 							<div style={{marginLeft:"40px",marginRight:"40px"}}>
+								<Suspense fallback={suspenseLoading}>
 								<div className="Row">
 									<div className="Column HomeLeft">
 										<KMaps key="gmaps"/>
@@ -479,6 +487,7 @@ class KDesk extends React.Component{
 										</div>
 									</div>
 								</div>
+								</Suspense>
 							</div>
 						</div>	
 			);
@@ -496,7 +505,7 @@ class KDesk extends React.Component{
 					<div className="Column HeaderLeft noSelect"> 
 						<div style={{marginLeft:"30px", marginTop:"30px", marginBottom: "10px"}}>
 							<img src={HH} alt="khela ghar title" style={{width:"72%"}} 
-								referrerPolicy="same-origin" className="dImageFlash" key="dHHM"/>
+								referrerPolicy="same-origin" className="dImageFlash" key="dHHM" loading="lazy"/>
 						</div>
 						<br/> 
 						<div align="center" style={{marginLeft:"30px"}}>
@@ -510,7 +519,7 @@ class KDesk extends React.Component{
 					<div className="Column HeaderRight noSelect">
 						<div style={{marginLeft:"2px",marginTop:"18px"}}> 
 							<img src={H4} alt="sun" style={{width:"70%"}} className="dImageRotate" 
-								referrerPolicy="same-origin" key="dHSun"/>
+								referrerPolicy="same-origin" key="dHSun" loading="lazy"/>
 						</div>
 					</div>	
 				</div /*header end*/>
@@ -547,7 +556,7 @@ class KDesk extends React.Component{
 						</div>
 						<div align="center">
 							<img src={F1} alt="footer" style={{width:"75vw"}} key="dFA"
-								className="noSelect" referrerPolicy="same-origin">
+								className="noSelect" referrerPolicy="same-origin" loading="lazy">
 							</img>
 						</div>
 					</div>

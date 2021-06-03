@@ -21,7 +21,7 @@ const imgArray = [{id:1,src:"https://lh3.googleusercontent.com/PiGPB1yiiEiZug_xE
 				  {id:13,src:"https://lh3.googleusercontent.com/yWxKRBsnxLoCa7hrK36Hk0ui6X9qBS9GNfMfWJqftjwTfdUkDsDos_eEK5DT0Fn1Z0KVlnYZM03W_56Kh6EiACGO8e-A_1tOI3dRCKVpW5Dh1SGACeYGxx-xj451VYpDeZXCZwK-7A=w2400",alt:"image13"}];
 
 const imgItems = imgArray.map((img) => {
-			return(<img src={img.src} key={img.id.toString()} alt={img.alt} 
+			return(<img src={img.src} key={img.id.toString()} alt={img.alt} loading="lazy"
 				className="noSelect swiper-slide BorderRound" referrerPolicy="same-origin"/>);
 		});
 

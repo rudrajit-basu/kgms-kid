@@ -1,9 +1,6 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './MStyle.css';
 import HHM from './img/main/HHM.png';
-// import H1 from './img/main/H1.png';
-// import H2 from './img/main/H2.png';
-// import H3 from './img/main/H3.png';
 import H4 from './img/main/H4.png';
 import B1 from './img/main/B1.png';
 import B2 from './img/main/B2.png';
@@ -15,13 +12,17 @@ import AA from'./img/main/AA.png';
 import T1 from'./img/main/T1.png';
 import KData from './content/KData';
 import O2 from './img/main/O2.png';
-import KSwipe from './KSwipe';
-import KMaps from './KMaps';
-import KContactForm from './KContactForm';
+// import KSwipe from './KSwipe';
+// import KMaps from './KMaps';
+// import KContactForm from './KContactForm';
 import "firebase/firestore";
 import "firebase/analytics";
 
-const kmJsonData = KData;
+const KSwipe = React.lazy(() => import('./KSwipe'));
+const KMaps = React.lazy(() => import('./KMaps'));
+const KContactForm = React.lazy(() => import('./KContactForm'));
+
+const kJsonMData = KData;
 
 class KMob extends React.Component{
 
@@ -164,14 +165,11 @@ class KMob extends React.Component{
 
 	async handleSunAnimation(event) {
 		if(event.target.classList !== null && event.target.classList !== undefined) {
-			if(!event.target.classList.contains('mImageRotate')){
+			if(event.target.classList.contains('mImageRotateDelay')){
+				event.target.classList.remove('mImageRotateDelay');
 				event.target.classList.add('mImageRotate');
 			} else {
 				this.setState(prevState=>({ismSunAnimate: !prevState.ismSunAnimate}));
-			}
-
-			if(event.target.classList.contains('mImageRotateDelay')){
-				event.target.classList.remove('mImageRotateDelay');
 			}
 		}
 		event.preventDefault();
@@ -236,21 +234,25 @@ class KMob extends React.Component{
 	}
 
 	getMContent(button){
+		const suspenseLoading = <div className='mTextMain' align='center'>Loading...</div>;
 		if(button === 'home'){
 			const openLink = (link) => {
 				window.open(link);
 			}
 			return(
+				
 				<div className="pt-page-rotateUnfoldRight" key={button}>
 					<div className="mBodyContent2">
 						<div align="center">
-							<img src={T1} alt="kgms tag" className="mTagImg" referrerPolicy="same-origin"/>
+							<img src={T1} alt="kgms tag" className="mTagImg" referrerPolicy="same-origin" loading="lazy"/>
 						</div>
+						<Suspense fallback={suspenseLoading}>
 						<div align="center" className="mTextGap3">
 							<KSwipe />
 						</div>
+						</Suspense>
 						<div align="center" className="mTextGap4">
-							<img src={O2} alt="ad" className="mAdImh" referrerPolicy="same-origin"/>
+							<img src={O2} alt="ad" className="mAdImh" referrerPolicy="same-origin" loading="lazy"/>
 						</div>
 						<div align="center" className="mTextGap2">
 							<button className="mLoginButton" onClick={()=>openLink("https://kgmskid-study.web.app/")}
@@ -270,12 +272,12 @@ class KMob extends React.Component{
 						<p><b className="mTextHead">About Us</b></p>
 						<hr className="mHrBlack"/>
 						<div className="mTextBlk">
-							<p className="mTextGap1"><b className="mTextMain">{KData.KAboutUs.para1}</b></p>
-							<p className="mTextGap2"><b className="mTextMain">{KData.KAboutUs.para2}</b></p>
+							<p className="mTextGap1"><b className="mTextMain">{kJsonMData.KAboutUs.para1}</b></p>
+							<p className="mTextGap2"><b className="mTextMain">{kJsonMData.KAboutUs.para2}</b></p>
 						</div>
 						<div align="center" className="mTextGap3">
 							<p align="center" className="mAbtusTag mTextSubHead"><b>|/ FACILITIES \|</b></p>
-							<img src={AA} alt="AA" className="noSelect mAbtUsImg" referrerPolicy="same-origin"/>
+							<img src={AA} alt="AA" className="noSelect mAbtUsImg" referrerPolicy="same-origin" loading="lazy"/>
 						</div>
 					</div>
 				</div>
@@ -297,41 +299,41 @@ class KMob extends React.Component{
 						<p><b className="mTextHead">Programs</b></p>
 						<hr className="mHrBlack"/>
 						<div className="mTextBlk">
-							<p className="mTextGap2"><b className="mTextSubHead">{kmJsonData.KPrograms.title1}</b></p>
+							<p className="mTextGap2"><b className="mTextSubHead">{kJsonMData.KPrograms.title1}</b></p>
 							<hr className="mHrBlackSub" align="left"/>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title1_desc}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title1_desc}</b></p>
 						</div>
 						<div className="mTextBlk">
-							<p className="mTextGap2"><b className="mTextSubHead">{kmJsonData.KPrograms.title2}</b></p>
+							<p className="mTextGap2"><b className="mTextSubHead">{kJsonMData.KPrograms.title2}</b></p>
 							<hr className="mHrBlackSub" align="left"/>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title2_desc}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title2_desc}</b></p>
 						</div>
 						<div className="mTextBlk">
-							<p className="mTextGap2"><b className="mTextSubHead">{kmJsonData.KPrograms.title3}</b></p>
+							<p className="mTextGap2"><b className="mTextSubHead">{kJsonMData.KPrograms.title3}</b></p>
 							<hr className="mHrBlackSub" align="left"/>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title3_desc1}</b></p>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title3_desc2}</b></p>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title3_desc3}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title3_desc1}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title3_desc2}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title3_desc3}</b></p>
 						</div>
 						<div className="mTextBlk">
-							<p className="mTextGap2"><b className="mTextSubHead">{kmJsonData.KPrograms.title4}</b></p>
+							<p className="mTextGap2"><b className="mTextSubHead">{kJsonMData.KPrograms.title4}</b></p>
 							<hr className="mHrBlackSub" align="left"/>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title4_desc}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title4_desc}</b></p>
 						</div>
 						<div className="mTextBlk">
-							<p className="mTextGap2"><b className="mTextSubHead">{kmJsonData.KPrograms.title5}</b></p>
+							<p className="mTextGap2"><b className="mTextSubHead">{kJsonMData.KPrograms.title5}</b></p>
 							<hr className="mHrBlackSub" align="left"/>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title5_desc}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title5_desc}</b></p>
 						</div>
 						<div className="mTextBlk">
-							<p className="mTextGap2"><b className="mTextSubHead">{kmJsonData.KPrograms.title6}</b></p>
+							<p className="mTextGap2"><b className="mTextSubHead">{kJsonMData.KPrograms.title6}</b></p>
 							<hr className="mHrBlackSub" align="left"/>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title6_desc}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title6_desc}</b></p>
 						</div>
 						<div className="mTextBlk">
-							<p className="mTextGap2"><b className="mTextSubHead">{kmJsonData.KPrograms.title7}</b></p>
+							<p className="mTextGap2"><b className="mTextSubHead">{kJsonMData.KPrograms.title7}</b></p>
 							<hr className="mHrBlackSub" align="left"/>
-							<p className="mTextGap3"><b className="mTextMain">{kmJsonData.KPrograms.title7_desc}</b></p>
+							<p className="mTextGap3"><b className="mTextMain">{kJsonMData.KPrograms.title7_desc}</b></p>
 						</div>
 					</div>
 				</div>
@@ -340,12 +342,14 @@ class KMob extends React.Component{
 			return(
 				<div className="mSeaBlue mBord mBoxShadow pt-page-rotateUnfoldRight" key={button}>
 					<div className="mBodyContent2">						
+						<Suspense fallback={suspenseLoading}>
 						<div>
 							<KContactForm startModal={(msg) => this.handleMModalStart(msg)}/>
 						</div>
 						<div align="center" className="mTextGap2">
 							<KMaps key="gmaps"/>
 						</div>
+						</Suspense>
 					</div>
 				</div>
 			);
@@ -374,7 +378,7 @@ class KMob extends React.Component{
 						</div>
 						<div className="Column TopRight" align="right">
 							<img src={H4} alt="sun" onClick={this.handleSunAnimation} key={`mSunA${this.state.ismSunAnimate.toString()}`}
-								className="mSun noSelect mImageRotateDelay" referrerPolicy="same-origin"/>
+								className="mSun noSelect mImageRotateDelay" referrerPolicy="same-origin" loading="lazy"/>
 						</div>
 					</div>
 					<div className="m-modal" style={this.state.isHamB ? {display:'block'} : {display:'none'}}  align="center" /*Button Modal Start*/>
@@ -401,7 +405,8 @@ class KMob extends React.Component{
 				</div /*header1 end*/>
 				<div align="left" className="hDiv" /*header2 start*/>
 					<img src={HHM} alt="khela ghar title" className="mH1 noSelect" referrerPolicy="same-origin"
-						key={`mHHMA${this.state.ismMainHeaderAnimate.toString()}`} onClick={this.handleMainHeaderAnimation}/>
+						key={`mHHMA${this.state.ismMainHeaderAnimate.toString()}`} onClick={this.handleMainHeaderAnimation} 
+						loading="lazy"/>
 				</div /*header2 end*/>
 				<div style={{width:'100%'}} /*body start*/>
 					<div className="mBodyContent1">
@@ -426,7 +431,7 @@ class KMob extends React.Component{
 							className="mFooterTip mTextMain">&#169; {'Khela Ghar Montessory School, 2021'}</span>
 					</div>
 					<img src={F1} alt="footer" className="mFooter mTextGap3 noSelect" referrerPolicy="same-origin"
-						key="mFA"/>
+						key="mFA" loading="lazy"/>
 				</div /*footer ends*/>
 			</div /*app end*/>
 		);
