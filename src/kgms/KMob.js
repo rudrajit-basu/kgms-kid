@@ -12,6 +12,8 @@ import AA from'./img/main/AA.png';
 import T1 from'./img/main/T1.png';
 import KData from './content/KData';
 import O2 from './img/main/O2.png';
+import FV from './img/main/fv.png';
+import Pl from './img/main/PlBtn.png';
 // import KSwipe from './KSwipe';
 // import KMaps from './KMaps';
 // import KContactForm from './KContactForm';
@@ -31,7 +33,7 @@ class KMob extends React.Component{
 		this.state = {isHamB:false, currentMButton: 'home', ismModal:false, mmodalMsg:'',
 						mKEvents:[{id:0, header:"Please wait... Fetching Events >>", date:"", desc:""}],
 						ismEvenTrig:false, mEventNum:0, ismSunAnimate: false, ismMainHeaderAnimate: false,
-						ismFooterAnimation: false};
+						ismFooterAnimation: false, isMVidModal: false, MVidModalSrc: '', isMShowLoading: true};
 		this.handleHamB = this.handleHamB.bind(this);
 		this.handleModalButton = this.handleModalButton.bind(this);
 		this.handleMButtonClick = this.handleMButtonClick.bind(this);
@@ -44,6 +46,12 @@ class KMob extends React.Component{
 		this.handleSunAnimation = this.handleSunAnimation.bind(this);
 		this.handleMainHeaderAnimation = this.handleMainHeaderAnimation.bind(this);
 		this.handleFooterAnimation = this.handleFooterAnimation.bind(this);
+		this.getFeaturedVideoFrom = this.getFeaturedVideoFrom.bind(this);
+		this.getMVideoPlayer = this.getMVideoPlayer.bind(this);
+		this.handleStartMVidModal = this.handleStartMVidModal.bind(this);
+		this.handleCloseMVidModal = this.handleCloseMVidModal.bind(this);
+		this.handleMOnYtLoad = this.handleMOnYtLoad.bind(this);
+		this.handleMAdmClick = this.handleMAdmClick.bind(this);
 	}
 
 	async mFetchEvents(){
@@ -156,6 +164,9 @@ class KMob extends React.Component{
 
 	handleMHistoryPop(event){
 		// console.log(`History state: ${JSON.stringify(event.state)}`);
+		if(this.state.isMVidModal){
+			this.handleCloseMVidModal(event);
+		}
 		if(event.state !== null){
 			this.setState({currentMButton: event.state.mPage});
 		}else{
@@ -204,6 +215,29 @@ class KMob extends React.Component{
 		// }
 	}
 
+	async handleMAdmClick(event) {
+		window.history.pushState({mPage: event.target.name},'','');
+		this.setState({currentMButton: event.target.name});
+		event.preventDefault();
+	}
+
+	handleStartMVidModal(src){
+		this.setState({isMVidModal: true, MVidModalSrc: src});	
+	}
+
+	handleCloseMVidModal(event){
+		this.setState({isMVidModal: false, MVidModalSrc: '', isMShowLoading: true});
+		event.preventDefault();
+	}
+
+	handleMOnYtLoad(event){
+		if(this.state.isMVidModal){
+			// console.log('yeah');
+			this.setState({isMShowLoading: false});
+		}
+		event.preventDefault();
+	}
+
 	getMEventsFrom(){
 		// eslint-disable-next-line
 		const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
@@ -233,6 +267,43 @@ class KMob extends React.Component{
 		return eventListItems;		
 	}
 
+	getFeaturedVideoFrom(){
+		let featuredVideoListItems = this.props.featuredVideosList.map((vidL) => {
+			let embedUrl = `https://www.youtube.com/embed/${vidL.videoId}`;
+			return(
+				<div key={vidL.id} className="mTextGap5">
+					<div style={{position: 'relative'}} align='center' 
+						onClick={(event)=>{this.handleStartMVidModal(embedUrl); event.preventDefault();}}>
+						<img src={vidL.thumbnail} alt={vidL.title} className="mTaskImg"
+							referrerPolicy="same-origin" loading="lazy"/>
+						<img src={Pl} alt="playBtton" className="mPlayBtnImg"/>		
+					</div>
+					<p><b className="mTextMain"><u>{vidL.title}</u></b></p>	
+				</div>
+			);
+		});
+
+		return featuredVideoListItems;
+	}
+
+	getMVideoPlayer(src){
+		if(src !== ''){
+			return(
+				<div className="mTaskVideoContainer">
+					<div align="center" style={{display: this.state.isMShowLoading ? 'block' : 'none'}}>
+						<p className="mTextMainWhiteTag">{'Loading...'}</p></div>
+					<iframe className="dTaskVideo" src={src} samesite="None; secure"
+						title="modal video" type="text/html" allowFullScreen="allowfullscreen" referrerPolicy="same-origin"
+						frameBorder="0" loading="lazy" onLoad={this.handleMOnYtLoad}/>
+				</div>
+			);
+		} else {
+			return(
+				<div/>
+			);	
+		}
+	}
+
 	getMContent(button){
 		const suspenseLoading = <div className='mTextMain' align='center'>Loading...</div>;
 		if(button === 'home'){
@@ -252,7 +323,8 @@ class KMob extends React.Component{
 						</div>
 						</Suspense>
 						<div align="center" className="mTextGap4">
-							<img src={O2} alt="ad" className="mAdImh" referrerPolicy="same-origin" loading="lazy"/>
+							<img src={O2} alt="ad" className="mAdImh" referrerPolicy="same-origin" loading="lazy"
+								name="contactus" onClick={this.handleMAdmClick}/>
 						</div>
 						<div align="center" className="mTextGap2">
 							<button className="mLoginButton" onClick={()=>openLink("https://kgmskid-study.web.app/")}
@@ -261,6 +333,10 @@ class KMob extends React.Component{
 						<div align="center" className="mTextGap2">
 							<button className="mLoginButton" onClick={()=>openLink("https://khela-ghar-montessori-school.business.site/")}
 								>{'School Site >'}</button>
+						</div>
+						<div align="center" className="mTextGap5" style={{display: this.props.featuredVideosList.length > 0 ? 'block' : 'none'}}>
+							<img src={FV} alt="featuredVideo" className="mFvImh" referrerPolicy="same-origin" loading="lazy"/>
+							{this.getFeaturedVideoFrom()}
 						</div>
 					</div>
 				</div>
@@ -425,6 +501,14 @@ class KMob extends React.Component{
     					</div>
   					</div>
 				</div /*modal end*/>
+				<div style={{display: this.state.isMVidModal ? 'block' : 'none'}} 
+					className="mImgModal" /*video modal starts*/>
+					<span className="mImgModalClose" 
+						onClick={this.handleCloseMVidModal}>&times;</span>
+					<div> 
+						{this.getMVideoPlayer(this.state.MVidModalSrc)}
+					</div>
+				</div /*video modal ends*/>
 				<div align="center" style={{marginTop:'2em'}} onClick={this.handleFooterAnimation} /*footer start*/>
 					<div align="center">
 						<span style={{visibility: this.state.ismFooterAnimation ? 'visible' : 'hidden'}}

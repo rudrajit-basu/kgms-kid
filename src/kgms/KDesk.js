@@ -24,6 +24,8 @@ import A4 from'./img/main/A4.png';
 import A5 from'./img/main/A5.png';
 import A6 from'./img/main/A6.png';
 import T2 from'./img/main/T2.png';
+import FV from './img/main/fv.png';
+import Pl from './img/main/PlBtn.png';
 // import KSwipe from './KSwipe';
 import KData from './content/KData';
 // import KMaps from './KMaps';
@@ -60,7 +62,7 @@ class KDesk extends React.Component{
 		super(props);
 		this.state = {currentButton:'home',isModal:false,modalMsg:'', kBodyNum: [],
 						KEvents:[{id:0,header:"Please wait... Fetching Events >>",date:"",desc:""}],
-						eventNum:0, isEvenTrig:false};
+						eventNum:0, isEvenTrig:false, isDVidModal: false, DVidModalSrc: '', isShowLoading: true};
 		this.getContent = this.getContent.bind(this);
 		this.handleButtonClick = this.handleButtonClick.bind(this);
 		this.handleModalClose = this.handleModalClose.bind(this);
@@ -71,6 +73,11 @@ class KDesk extends React.Component{
 		this.fetchEvents = this.fetchEvents.bind(this);
 		this.handleHistoryPop = this.handleHistoryPop.bind(this);
 		this.handleCurrentDecoList = this.handleCurrentDecoList.bind(this);
+		this.getFeaturedVideoFrom = this.getFeaturedVideoFrom.bind(this);
+		this.getVideoPlayer = this.getVideoPlayer.bind(this);
+		this.handleStartDVidModal = this.handleStartDVidModal.bind(this);
+		this.handleCloseDVidModal = this.handleCloseDVidModal.bind(this);
+		this.handleDOnYtLoad = this.handleDOnYtLoad.bind(this);
 		this.bodyRef = React.createRef();
 	}
 
@@ -122,6 +129,9 @@ class KDesk extends React.Component{
 
 	handleHistoryPop(event){
 		// console.log(`History state: ${JSON.stringify(event.state)}`);
+		if (this.state.isDVidModal) {
+			this.handleCloseDVidModal(event);
+		} 
 		if(event.state !== null){
 			this.setState({currentButton: event.state.page});
 		}else{
@@ -351,6 +361,59 @@ class KDesk extends React.Component{
 		}	
 	}
 
+	getFeaturedVideoFrom(){
+		let featuredVideoListItems = this.props.featuredVideosList.map((vidL) => {
+			let embedUrl = `https://www.youtube.com/embed/${vidL.videoId}`;
+			return(
+				<div key={vidL.id} style={{marginTop:'55px'}}>
+					<div style={{position: 'relative'}} align='center' onClick={(event)=>{this.handleStartDVidModal(embedUrl); event.preventDefault();}}>
+						<img src={vidL.thumbnail} alt={vidL.title} className="dTaskVideoImg"
+							referrerPolicy="same-origin" loading="lazy"/>
+						<img src={Pl} alt="playBtton" className="dPlayBtnImg"/>		
+					</div>
+					<p><b className="dMain"><u>{vidL.title}</u></b></p>	
+				</div>
+			);
+		});
+
+		return featuredVideoListItems;
+	}
+
+	handleStartDVidModal(src){
+		this.setState({isDVidModal: true, DVidModalSrc: src});	
+	}
+
+	handleCloseDVidModal(event){
+		this.setState({isDVidModal: false, DVidModalSrc: '', isShowLoading: true});
+		event.preventDefault();
+	}
+
+	handleDOnYtLoad(event){
+		if(this.state.isDVidModal){
+			// console.log('yeah d');
+			this.setState({isShowLoading: false});
+		}
+		event.preventDefault();
+	}
+
+	getVideoPlayer(src){
+		if(src !== ''){
+			return(
+				<div className="dTaskVideoContainer">
+					<div align="center" style={{display: this.state.isShowLoading ? 'block' : 'none'}}>
+						<h3 className="dLoadingTag">{'Loading...'}</h3></div>
+					<iframe className="dTaskVideo" src={src} samesite="None; secure"
+						title="modal video" type="text/html" allowFullScreen="allowfullscreen" referrerPolicy="same-origin"
+						frameBorder="0" loading="lazy" onLoad={this.handleDOnYtLoad}/>
+				</div>
+			);
+		} else {
+			return(
+				<div/>
+			);
+		}
+	}
+
 	getContent(button){
 		const suspenseLoading = <div style={{fontSize:'1.195em'}} align='center'>Loading...</div>;
 		if(button==='home'){
@@ -368,8 +431,9 @@ class KDesk extends React.Component{
 							<KSwipe />
 						</div>
 						</Suspense>
-						<div align="center" style={{marginTop:'45px'}}>
-							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'43%'}} className="noSelect" referrerPolicy="same-origin" loading="lazy"/>
+						<div align="center" style={{marginTop:'65px'}}>
+							<img src={img_O[1].src} alt={img_O[1].alt} style={{width:'43%', cursor: 'pointer'}} className="noSelect" 
+							referrerPolicy="same-origin" loading="lazy" name="contactus" onClick={this.handleButtonClick}/>
 						</div>
 						<div align="center" style={{marginTop:'55px'}}>
 							<div className="Row">
@@ -382,6 +446,10 @@ class KDesk extends React.Component{
 										>{'Student Login >'}</button>
 								</div>
 							</div>
+						</div>
+						<div align="center" style={{marginTop:'65px', display: this.props.featuredVideosList.length > 0 ? 'block' : 'none'}}>
+							<img src={FV} alt="featuredVideo" style={{width:'30%'}} className="noSelect" referrerPolicy="same-origin" loading="lazy"/>
+							{this.getFeaturedVideoFrom()}
 						</div>
 					</div>
 				</div>
@@ -549,6 +617,14 @@ class KDesk extends React.Component{
     					</div>
   					</div>
 				</div /*modal end*/>
+				<div style={{display: this.state.isDVidModal ? 'block' : 'none'}} 
+					className="dImgModal" /*video modal starts*/>
+					<span className="dImgModalClose" 
+						onClick={this.handleCloseDVidModal}>&times;</span>
+					<div> 
+						{this.getVideoPlayer(this.state.DVidModalSrc)}
+					</div>
+				</div /*video modal ends*/>
 				<div className="Row" style={{marginTop:"60px"}}/*footer start*/>
 					<div className="Column Footer dFooterContainer">
 						<div align="center">
