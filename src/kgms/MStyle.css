@@ -263,6 +263,20 @@
   font-size: 2.5em;
   font-weight: bold;
   transition: 0.3s;
+}
+
+.mGoToTopImg {
+	position: absolute;
+	right: 10%;
+	/*bottom: 0;*/
+	width: 15%;
+	border-radius: 50%;
+	background-color: rgba(0,0,0,0.15);
+}
+
+.mGoToTopImg:active {
+	transform: translateY(4px);
+	background-color: rgba(0,0,0,0.35);
 }	
 
 
@@ -910,6 +924,15 @@
     font-weight: bold;
     transition: 0.3s;
   }
+
+  .mGoToTopImg {
+		position: absolute;
+		right: 10%;
+		/*bottom: 0;*/
+		width: 9.5%;
+		border-radius: 50%;
+		background-color: rgba(0,0,0,0.15);
+	}
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -1500,6 +1523,15 @@
 	  font-weight: bold;
 	  transition: 0.3s;
 	}
+
+	.mGoToTopImg {
+		position: absolute;
+		right: 10%;
+		/*bottom: 0;*/
+		width: 9.5%;
+		border-radius: 50%;
+		background-color: rgba(0,0,0,0.15);
+	}
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -1845,7 +1877,16 @@
 	    font-size: 4.5em;
 	    font-weight: bold;
 	    transition: 0.3s;
-	  }	
+	  }
+
+	  .mGoToTopImg {
+			position: absolute;
+			right: 10%;
+			/*bottom: 0;*/
+			width: 12%;
+			border-radius: 50%;
+			background-color: rgba(0,0,0,0.15);
+		}	
 }
 
 @media only screen and (min-width: 768px) and (orientation: landscape) {
@@ -2157,6 +2198,15 @@
       font-weight: bold;
       transition: 0.3s;
     }
+
+    .mGoToTopImg {
+			position: absolute;
+			right: 10%;
+			/*bottom: 0;*/
+			width: 9.5%;
+			border-radius: 50%;
+			background-color: rgba(0,0,0,0.15);
+		}
 }
 
 @media only screen and (min-width: 1024px) and (orientation: portrait) {
@@ -2472,6 +2522,15 @@
 	    font-weight: bold;
 	    transition: 0.3s;
 	  }
+
+	  .mGoToTopImg {
+			position: absolute;
+			right: 10%;
+			/*bottom: 0;*/
+			width: 11.7%;
+			border-radius: 50%;
+			background-color: rgba(0,0,0,0.15);
+		}
 }
 
 @media only screen and (min-width: 1366px) and (orientation: landscape) {
@@ -2784,6 +2843,15 @@
       font-weight: bold;
       transition: 0.3s;
     }
+
+    .mGoToTopImg {
+			position: absolute;
+			right: 10%;
+			/*bottom: 0;*/
+			width: 9.2%;
+			border-radius: 50%;
+			background-color: rgba(0,0,0,0.15);
+		}
 }
 
 .mGreen{

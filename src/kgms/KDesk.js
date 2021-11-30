@@ -26,7 +26,9 @@ import A6 from'./img/main/A6.png';
 import T2 from'./img/main/T2.png';
 import FV from './img/main/fv.png';
 import Pl from './img/main/PlBtn.png';
+import GT from './img/main/gtop.png';
 // import KSwipe from './KSwipe';
+import {isFirefox} from 'react-device-detect';
 import KData from './content/KData';
 // import KMaps from './KMaps';
 // import KContactForm from './KContactForm';
@@ -56,13 +58,16 @@ const imgArrL = [eImgL1,eImgL2,eImgL3,eImgL4];
 const imgArrR = [eImgR1,eImgR2,eImgR3,eImgR4];
 const kJsonData = KData;
 
+const animeTime = isFirefox ? 42 : 82;
+
 class KDesk extends React.Component{
 
 	constructor(props){
 		super(props);
 		this.state = {currentButton:'home',isModal:false,modalMsg:'', kBodyNum: [],
 						KEvents:[{id:0,header:"Please wait... Fetching Events >>",date:"",desc:""}],
-						eventNum:0, isEvenTrig:false, isDVidModal: false, DVidModalSrc: '', isShowLoading: true};
+						eventNum:0, isEvenTrig:false, isDVidModal: false, DVidModalSrc: '', 
+						isShowLoading: true, isShowToTop: false};
 		this.getContent = this.getContent.bind(this);
 		this.handleButtonClick = this.handleButtonClick.bind(this);
 		this.handleModalClose = this.handleModalClose.bind(this);
@@ -78,6 +83,9 @@ class KDesk extends React.Component{
 		this.handleStartDVidModal = this.handleStartDVidModal.bind(this);
 		this.handleCloseDVidModal = this.handleCloseDVidModal.bind(this);
 		this.handleDOnYtLoad = this.handleDOnYtLoad.bind(this);
+		this.handleGtTopDisplay = this.handleGtTopDisplay.bind(this);
+		this.animateScrollToElem = this.animateScrollToElem.bind(this);
+		this.handleGtTopClick = this.handleGtTopClick.bind(this);
 		this.bodyRef = React.createRef();
 	}
 
@@ -126,6 +134,64 @@ class KDesk extends React.Component{
 		window.removeEventListener('kRefresh', this.kRefreshInfo, false);
 		clearTimeout(this.timerDecor);
 	}
+
+
+	 componentDidUpdate() {
+	 	this.handleGtTopDisplay();
+	 }
+
+	async handleGtTopDisplay() {
+		// console.log(`clientHeight: ${this.bodyRef.current.clientHeight}`);
+		const clientHeight = this.bodyRef.current.clientHeight;
+		if (clientHeight > 1000) {
+			if (!this.state.isShowToTop)
+			this.setState({isShowToTop: true});
+		} else {
+			if (this.state.isShowToTop)
+			this.setState({isShowToTop: false});
+		}
+	}
+
+	async animateScrollToElem(position){
+		// const animeTime = 92;
+		const curPos = Math.floor(window.scrollY);
+		// console.log(`position --> ${position} & curPos --> ${curPos}`);
+		if(curPos > position){
+			let steps = curPos <= 4000 ? 5 : 3;
+			// console.log(`steps --> ${steps}`);
+			if(steps > 0) {
+				const sDist = curPos / steps;
+				let cPos = curPos;
+				this.scrollTimer = setInterval(() => {
+					if(steps >= 1){
+						cPos = cPos - sDist;
+						window.scrollTo(0, cPos);
+						steps--;
+						// console.log(`curPos --> ${curPos}`);
+					} else {
+						window.scrollTo(0, position);
+						clearInterval(this.scrollTimer);
+						this.scrollTimer = undefined;
+					}
+				}, animeTime);
+			} else {
+				window.scrollTo(0, position);
+				// console.log('steps === 0');
+			}
+		} 
+	}
+
+	handleGtTopClick(event) {
+		const tryAnimeScroll = async (vPos) => {
+			try{
+				this.animateScrollToElem(vPos);
+			}catch(e){
+				window.scrollTo(0, vPos);
+			}
+		}
+		tryAnimeScroll(0);
+		event.preventDefault();
+	} 
 
 	handleHistoryPop(event){
 		// console.log(`History state: ${JSON.stringify(event.state)}`);
@@ -379,16 +445,16 @@ class KDesk extends React.Component{
 		return featuredVideoListItems;
 	}
 
-	handleStartDVidModal(src){
+	async handleStartDVidModal(src){
 		this.setState({isDVidModal: true, DVidModalSrc: src});	
 	}
 
-	handleCloseDVidModal(event){
+	async handleCloseDVidModal(event){
 		this.setState({isDVidModal: false, DVidModalSrc: '', isShowLoading: true});
 		event.preventDefault();
 	}
 
-	handleDOnYtLoad(event){
+	async handleDOnYtLoad(event){
 		if(this.state.isDVidModal){
 			// console.log('yeah d');
 			this.setState({isShowLoading: false});
@@ -625,6 +691,9 @@ class KDesk extends React.Component{
 						{this.getVideoPlayer(this.state.DVidModalSrc)}
 					</div>
 				</div /*video modal ends*/>
+				<div style={{position: 'relative', display: this.state.isShowToTop ? 'block': 'none'}}>
+					<img src={GT} alt="goToTop" className="dGoToTopImg" onClick={this.handleGtTopClick}/>
+				</div>
 				<div className="Row" style={{marginTop:"60px"}}/*footer start*/>
 					<div className="Column Footer dFooterContainer">
 						<div align="center">

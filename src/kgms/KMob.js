@@ -14,6 +14,7 @@ import KData from './content/KData';
 import O2 from './img/main/O2.png';
 import FV from './img/main/fv.png';
 import Pl from './img/main/PlBtn.png';
+import GT from './img/main/gtop.png';
 // import KSwipe from './KSwipe';
 // import KMaps from './KMaps';
 // import KContactForm from './KContactForm';
@@ -33,7 +34,8 @@ class KMob extends React.Component{
 		this.state = {isHamB:false, currentMButton: 'home', ismModal:false, mmodalMsg:'',
 						mKEvents:[{id:0, header:"Please wait... Fetching Events >>", date:"", desc:""}],
 						ismEvenTrig:false, mEventNum:0, ismSunAnimate: false, ismMainHeaderAnimate: false,
-						ismFooterAnimation: false, isMVidModal: false, MVidModalSrc: '', isMShowLoading: true};
+						ismFooterAnimation: false, isMVidModal: false, MVidModalSrc: '', isMShowLoading: true,
+						isShowToTop: false};
 		this.handleHamB = this.handleHamB.bind(this);
 		this.handleModalButton = this.handleModalButton.bind(this);
 		this.handleMButtonClick = this.handleMButtonClick.bind(this);
@@ -52,6 +54,10 @@ class KMob extends React.Component{
 		this.handleCloseMVidModal = this.handleCloseMVidModal.bind(this);
 		this.handleMOnYtLoad = this.handleMOnYtLoad.bind(this);
 		this.handleMAdmClick = this.handleMAdmClick.bind(this);
+		this.handleGtTopDisplay = this.handleGtTopDisplay.bind(this);
+		this.animateScrollToElem = this.animateScrollToElem.bind(this);
+		this.handleGtTopClick = this.handleGtTopClick.bind(this);
+		this.bodyRef = React.createRef();
 	}
 
 	async mFetchEvents(){
@@ -162,6 +168,63 @@ class KMob extends React.Component{
 		window.removeEventListener('kRefresh', this.kMRefreshInfo, false);
 	}
 
+	componentDidUpdate() {
+	 	this.handleGtTopDisplay();
+	 }
+
+	async handleGtTopDisplay() {
+		// console.log(`clientHeight: ${this.bodyRef.current.clientHeight}`);
+		const clientHeight = this.bodyRef.current.clientHeight;
+		if (clientHeight > 1000) {
+			if (!this.state.isShowToTop)
+			this.setState({isShowToTop: true});
+		} else {
+			if (this.state.isShowToTop)
+			this.setState({isShowToTop: false});
+		}
+	}
+
+	async animateScrollToElem(position){
+		const animeTime = 82;
+		const curPos = Math.floor(window.scrollY);
+		// console.log(`position --> ${position} & curPos --> ${curPos}`);
+		if(curPos > position){
+			let steps = curPos <= 4000 ? 5 : 3;
+			// console.log(`steps --> ${steps}`);
+			if(steps > 0) {
+				const sDist = curPos / steps;
+				let cPos = curPos;
+				this.scrollTimer = setInterval(() => {
+					if(steps >= 1){
+						cPos = cPos - sDist;
+						window.scrollTo(0, cPos);
+						steps--;
+						// console.log(`curPos --> ${curPos}`);
+					} else {
+						window.scrollTo(0, position);
+						clearInterval(this.scrollTimer);
+						this.scrollTimer = undefined;
+					}
+				}, animeTime);
+			} else {
+				window.scrollTo(0, position);
+				// console.log('steps === 0');
+			}
+		} 
+	}
+
+	handleGtTopClick(event) {
+		const tryAnimeScroll = async (vPos) => {
+			try{
+				this.animateScrollToElem(vPos);
+			}catch(e){
+				window.scrollTo(0, vPos);
+			}
+		}
+		tryAnimeScroll(0);
+		event.preventDefault();
+	}
+
 	handleMHistoryPop(event){
 		// console.log(`History state: ${JSON.stringify(event.state)}`);
 		if(this.state.isMVidModal){
@@ -221,16 +284,16 @@ class KMob extends React.Component{
 		event.preventDefault();
 	}
 
-	handleStartMVidModal(src){
+	async handleStartMVidModal(src){
 		this.setState({isMVidModal: true, MVidModalSrc: src});	
 	}
 
-	handleCloseMVidModal(event){
+	async handleCloseMVidModal(event){
 		this.setState({isMVidModal: false, MVidModalSrc: '', isMShowLoading: true});
 		event.preventDefault();
 	}
 
-	handleMOnYtLoad(event){
+	async handleMOnYtLoad(event){
 		if(this.state.isMVidModal){
 			// console.log('yeah');
 			this.setState({isMShowLoading: false});
@@ -484,7 +547,7 @@ class KMob extends React.Component{
 						key={`mHHMA${this.state.ismMainHeaderAnimate.toString()}`} onClick={this.handleMainHeaderAnimation} 
 						loading="lazy"/>
 				</div /*header2 end*/>
-				<div style={{width:'100%'}} /*body start*/>
+				<div style={{width:'100%'}} ref={this.bodyRef} /*body start*/>
 					<div className="mBodyContent1">
 						{this.getMContent(this.state.currentMButton)}
 					</div>
@@ -509,6 +572,9 @@ class KMob extends React.Component{
 						{this.getMVideoPlayer(this.state.MVidModalSrc)}
 					</div>
 				</div /*video modal ends*/>
+				<div style={{position: 'relative', display: this.state.isShowToTop ? 'block': 'none'}}>
+					<img src={GT} alt="goToTop" className="mGoToTopImg" onClick={this.handleGtTopClick}/>
+				</div>
 				<div align="center" style={{marginTop:'2em'}} onClick={this.handleFooterAnimation} /*footer start*/>
 					<div align="center">
 						<span style={{visibility: this.state.ismFooterAnimation ? 'visible' : 'hidden'}}
