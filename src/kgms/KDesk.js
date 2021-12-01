@@ -28,7 +28,7 @@ import FV from './img/main/fv.png';
 import Pl from './img/main/PlBtn.png';
 import GT from './img/main/gtop.png';
 // import KSwipe from './KSwipe';
-import {isFirefox} from 'react-device-detect';
+// import {isFirefox} from 'react-device-detect';
 import KData from './content/KData';
 // import KMaps from './KMaps';
 // import KContactForm from './KContactForm';
@@ -58,7 +58,7 @@ const imgArrL = [eImgL1,eImgL2,eImgL3,eImgL4];
 const imgArrR = [eImgR1,eImgR2,eImgR3,eImgR4];
 const kJsonData = KData;
 
-const animeTime = isFirefox ? 42 : 82;
+const animeTime = 42;
 
 class KDesk extends React.Component{
 
@@ -133,16 +133,42 @@ class KDesk extends React.Component{
 		window.removeEventListener('popstate',this.handleHistoryPop,false);
 		window.removeEventListener('kRefresh', this.kRefreshInfo, false);
 		clearTimeout(this.timerDecor);
+		clearTimeout(this.timerGTop);
+	}
+
+	getSnapshotBeforeUpdate(prevProps, prevState) {
+		if (prevProps.featuredVideosList.length !== this.props.featuredVideosList.length) {
+			return true;
+		}
+		if (prevState.KEvents.length !== this.state.KEvents.length) {
+			return true;
+		}
+		if (prevState.currentButton !== this.state.currentButton) {
+			if(this.state.currentButton === 'events' && !this.state.isEvenTrig){
+				this.fetchEvents();
+				console.log('fetchEvents triggered.....');
+			}
+			return true;		
+		}
+		
+		return null;
 	}
 
 
-	 componentDidUpdate() {
-	 	this.handleGtTopDisplay();
+	 componentDidUpdate(prevProps, prevState, snapshot) {
+	 	// this.handleGtTopDisplay();
+	 	if (snapshot !== null) {
+	 		// console.log(`snapshot = ${snapshot}`);
+	 		if (snapshot) {
+	 			this.timerGTop =  setTimeout(() => this.handleGtTopDisplay(this.bodyRef.current.clientHeight), 100);
+	 		}
+	 		// this.handleGtTopDisplay(snapshot);
+	 	}
 	 }
 
-	async handleGtTopDisplay() {
+	 async handleGtTopDisplay(clientHeight) {
 		// console.log(`clientHeight: ${this.bodyRef.current.clientHeight}`);
-		const clientHeight = this.bodyRef.current.clientHeight;
+		// const clientHeight = this.bodyRef.current.clientHeight;
 		if (clientHeight > 1000) {
 			if (!this.state.isShowToTop)
 			this.setState({isShowToTop: true});
@@ -150,10 +176,11 @@ class KDesk extends React.Component{
 			if (this.state.isShowToTop)
 			this.setState({isShowToTop: false});
 		}
+		// event.preventDefault();
 	}
 
 	async animateScrollToElem(position){
-		// const animeTime = 92;
+		// const animeTime = 42;
 		const curPos = Math.floor(window.scrollY);
 		// console.log(`position --> ${position} & curPos --> ${curPos}`);
 		if(curPos > position){
@@ -205,7 +232,7 @@ class KDesk extends React.Component{
 		}
 	}
 
-	handleButtonClick(event){
+	async handleButtonClick(event){
 
 		if(this.state.currentButton !== event.target.name){
 			// console.log(`new content: ${event.target.name}`);
@@ -428,14 +455,17 @@ class KDesk extends React.Component{
 	}
 
 	getFeaturedVideoFrom(){
+		const startVideo = (embedUrl) => {
+			this.handleStartDVidModal(embedUrl); 
+		};
 		let featuredVideoListItems = this.props.featuredVideosList.map((vidL) => {
 			let embedUrl = `https://www.youtube.com/embed/${vidL.videoId}`;
 			return(
 				<div key={vidL.id} style={{marginTop:'55px'}}>
-					<div style={{position: 'relative'}} align='center' onClick={(event)=>{this.handleStartDVidModal(embedUrl); event.preventDefault();}}>
+					<div style={{position: 'relative'}} align='center'>
 						<img src={vidL.thumbnail} alt={vidL.title} className="dTaskVideoImg"
-							referrerPolicy="same-origin" loading="lazy"/>
-						<img src={Pl} alt="playBtton" className="dPlayBtnImg"/>		
+							referrerPolicy="same-origin" loading="lazy" onClick={() => startVideo(embedUrl)}/>
+						<img src={Pl} alt="playBtton" className="dPlayBtnImg" onClick={() => startVideo(embedUrl)}/>		
 					</div>
 					<p><b className="dMain"><u>{vidL.title}</u></b></p>	
 				</div>
@@ -629,10 +659,6 @@ class KDesk extends React.Component{
 	}
 
 	render(){
-		if(this.state.currentButton === 'events' && !this.state.isEvenTrig){
-			this.fetchEvents();
-			/*console.log('fetchEvents triggered.....');*/
-		}
 		return(
 			<div className="App" /*app start*/>
 				<div className="Row" /*header start*/>

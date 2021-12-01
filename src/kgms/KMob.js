@@ -166,15 +166,42 @@ class KMob extends React.Component{
 			window.removeEventListener('online', this.dbmSubscribe, false);
 		}
 		window.removeEventListener('kRefresh', this.kMRefreshInfo, false);
+		clearTimeout(this.timerGTop);
 	}
 
-	componentDidUpdate() {
-	 	this.handleGtTopDisplay();
+	getSnapshotBeforeUpdate(prevProps, prevState) {
+		if (prevProps.featuredVideosList.length !== this.props.featuredVideosList.length) {
+			return true;
+		}
+		if (prevState.mKEvents.length !== this.state.mKEvents.length) {
+			return true;
+		}
+		if (prevState.currentMButton !== this.state.currentMButton) {
+			if(this.state.currentMButton === 'events' && !this.state.ismEvenTrig){
+				this.mFetchEvents();
+				// console.log('mFetchEvents triggered.....');
+			}
+			return true;		
+		}
+		
+		return null;
+	}
+
+
+	 componentDidUpdate(prevProps, prevState, snapshot) {
+	 	// this.handleGtTopDisplay();
+	 	if (snapshot !== null) {
+	 		// console.log(`snapshot = ${snapshot}`);
+	 		if (snapshot) {
+	 			this.timerGTop =  setTimeout(() => this.handleGtTopDisplay(this.bodyRef.current.clientHeight), 100);
+	 		}
+	 		// this.handleGtTopDisplay(snapshot);
+	 	}
 	 }
 
-	async handleGtTopDisplay() {
-		// console.log(`clientHeight: ${this.bodyRef.current.clientHeight}`);
-		const clientHeight = this.bodyRef.current.clientHeight;
+	async handleGtTopDisplay(clientHeight) {
+		// console.log(`clientHeight: ${clientHeight}`);
+		// const clientHeight = this.bodyRef.current.clientHeight;
 		if (clientHeight > 1000) {
 			if (!this.state.isShowToTop)
 			this.setState({isShowToTop: true});
@@ -185,7 +212,7 @@ class KMob extends React.Component{
 	}
 
 	async animateScrollToElem(position){
-		const animeTime = 82;
+		const animeTime = 42;
 		const curPos = Math.floor(window.scrollY);
 		// console.log(`position --> ${position} & curPos --> ${curPos}`);
 		if(curPos > position){
@@ -331,15 +358,17 @@ class KMob extends React.Component{
 	}
 
 	getFeaturedVideoFrom(){
+		const startVideo = (embedUrl) => {
+			this.handleStartMVidModal(embedUrl); 
+		};
 		let featuredVideoListItems = this.props.featuredVideosList.map((vidL) => {
 			let embedUrl = `https://www.youtube.com/embed/${vidL.videoId}`;
 			return(
 				<div key={vidL.id} className="mTextGap5">
-					<div style={{position: 'relative'}} align='center' 
-						onClick={(event)=>{this.handleStartMVidModal(embedUrl); event.preventDefault();}}>
+					<div style={{position: 'relative'}} align='center'>
 						<img src={vidL.thumbnail} alt={vidL.title} className="mTaskImg"
-							referrerPolicy="same-origin" loading="lazy"/>
-						<img src={Pl} alt="playBtton" className="mPlayBtnImg"/>		
+							referrerPolicy="same-origin" loading="lazy" onClick={()=>startVideo(embedUrl)}/>
+						<img src={Pl} alt="playBtton" className="mPlayBtnImg" onClick={()=>startVideo(embedUrl)}/>		
 					</div>
 					<p><b className="mTextMain"><u>{vidL.title}</u></b></p>	
 				</div>
@@ -498,10 +527,6 @@ class KMob extends React.Component{
 	render(){
 		const hamB = 'hamburger hamburger--spin';
 		const active_hamB = 'hamburger hamburger--spin is-active';
-		if(this.state.currentMButton === 'events' && !this.state.ismEvenTrig){
-			this.mFetchEvents();
-			/*console.log('mFetchEvents triggered.....');*/
-		}
 		return(
 			<div className="mApp" /*app start*/>
 				<div /*header1 start*/>
