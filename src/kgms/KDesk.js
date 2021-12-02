@@ -137,9 +137,6 @@ class KDesk extends React.Component{
 	}
 
 	getSnapshotBeforeUpdate(prevProps, prevState) {
-		if (prevProps.featuredVideosList.length !== this.props.featuredVideosList.length) {
-			return true;
-		}
 		if (prevState.KEvents.length !== this.state.KEvents.length) {
 			return true;
 		}
@@ -458,18 +455,36 @@ class KDesk extends React.Component{
 		const startVideo = (embedUrl) => {
 			this.handleStartDVidModal(embedUrl); 
 		};
-		let featuredVideoListItems = this.props.featuredVideosList.map((vidL) => {
+		const handleShowGTop = () => {
+			this.timerGTop =  setTimeout(() => this.handleGtTopDisplay(this.bodyRef.current.clientHeight), 100);
+		}
+		let featuredVideoListItems = this.props.featuredVideosList.map((vidL, index) => {
 			let embedUrl = `https://www.youtube.com/embed/${vidL.videoId}`;
-			return(
+			if (index === (this.props.featuredVideosList.length - 1)) {
+				return(
 				<div key={vidL.id} style={{marginTop:'55px'}}>
-					<div style={{position: 'relative'}} align='center'>
-						<img src={vidL.thumbnail} alt={vidL.title} className="dTaskVideoImg"
-							referrerPolicy="same-origin" loading="lazy" onClick={() => startVideo(embedUrl)}/>
-						<img src={Pl} alt="playBtton" className="dPlayBtnImg" onClick={() => startVideo(embedUrl)}/>		
+						<div style={{position: 'relative'}} align='center'>
+							<img src={vidL.thumbnail} alt={vidL.title} className="dTaskVideoImg"
+								referrerPolicy="same-origin" loading="lazy" onClick={() => startVideo(embedUrl)}
+								onLoad={()=>handleShowGTop()}/>
+							<img src={Pl} alt="playBtton" className="dPlayBtnImg" onClick={() => startVideo(embedUrl)}/>		
+						</div>
+						<p><b className="dMain"><u>{vidL.title}</u></b></p>	
 					</div>
-					<p><b className="dMain"><u>{vidL.title}</u></b></p>	
-				</div>
-			);
+				);
+
+			} else {
+				return(
+					<div key={vidL.id} style={{marginTop:'55px'}}>
+						<div style={{position: 'relative'}} align='center'>
+							<img src={vidL.thumbnail} alt={vidL.title} className="dTaskVideoImg"
+								referrerPolicy="same-origin" loading="lazy" onClick={() => startVideo(embedUrl)}/>
+							<img src={Pl} alt="playBtton" className="dPlayBtnImg" onClick={() => startVideo(embedUrl)}/>		
+						</div>
+						<p><b className="dMain"><u>{vidL.title}</u></b></p>	
+					</div>
+				);
+			}
 		});
 
 		return featuredVideoListItems;

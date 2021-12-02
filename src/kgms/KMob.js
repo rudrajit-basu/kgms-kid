@@ -170,9 +170,6 @@ class KMob extends React.Component{
 	}
 
 	getSnapshotBeforeUpdate(prevProps, prevState) {
-		if (prevProps.featuredVideosList.length !== this.props.featuredVideosList.length) {
-			return true;
-		}
 		if (prevState.mKEvents.length !== this.state.mKEvents.length) {
 			return true;
 		}
@@ -361,18 +358,35 @@ class KMob extends React.Component{
 		const startVideo = (embedUrl) => {
 			this.handleStartMVidModal(embedUrl); 
 		};
-		let featuredVideoListItems = this.props.featuredVideosList.map((vidL) => {
+		const handleShowGTop = () => {
+			this.timerGTop =  setTimeout(() => this.handleGtTopDisplay(this.bodyRef.current.clientHeight), 100);
+		}
+		let featuredVideoListItems = this.props.featuredVideosList.map((vidL, index) => {
 			let embedUrl = `https://www.youtube.com/embed/${vidL.videoId}`;
-			return(
-				<div key={vidL.id} className="mTextGap5">
-					<div style={{position: 'relative'}} align='center'>
-						<img src={vidL.thumbnail} alt={vidL.title} className="mTaskImg"
-							referrerPolicy="same-origin" loading="lazy" onClick={()=>startVideo(embedUrl)}/>
-						<img src={Pl} alt="playBtton" className="mPlayBtnImg" onClick={()=>startVideo(embedUrl)}/>		
+			if (index === (this.props.featuredVideosList.length - 1)) {
+				return(
+					<div key={vidL.id} className="mTextGap5">
+						<div style={{position: 'relative'}} align='center'>
+							<img src={vidL.thumbnail} alt={vidL.title} className="mTaskImg"
+								referrerPolicy="same-origin" loading="lazy" onClick={()=>startVideo(embedUrl)}
+								onLoad={() => handleShowGTop()}/>
+							<img src={Pl} alt="playBtton" className="mPlayBtnImg" onClick={()=>startVideo(embedUrl)}/>		
+						</div>
+						<p><b className="mTextMain"><u>{vidL.title}</u></b></p>	
 					</div>
-					<p><b className="mTextMain"><u>{vidL.title}</u></b></p>	
-				</div>
-			);
+				);
+			} else {
+				return(
+					<div key={vidL.id} className="mTextGap5">
+						<div style={{position: 'relative'}} align='center'>
+							<img src={vidL.thumbnail} alt={vidL.title} className="mTaskImg"
+								referrerPolicy="same-origin" loading="lazy" onClick={()=>startVideo(embedUrl)}/>
+							<img src={Pl} alt="playBtton" className="mPlayBtnImg" onClick={()=>startVideo(embedUrl)}/>		
+						</div>
+						<p><b className="mTextMain"><u>{vidL.title}</u></b></p>	
+					</div>
+				);
+			}
 		});
 
 		return featuredVideoListItems;
