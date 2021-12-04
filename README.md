@@ -1,5 +1,5 @@
 
-# kgms-kid
+# ![alt text][logo] &nbsp;&nbsp;kgms-kid
 
 This project is about [Khela Ghar Montessory School's website](https://kgmskid.web.app/), to create and enable it's online presence.
 
@@ -20,6 +20,8 @@ Third party library and api used as follows:
 * [Hamburgers > hamburger widget > css](https://github.com/jonsuh/hamburgers/blob/master/dist/hamburgers.css)
 * [Firebase firestore](https://firebase.google.com/docs/firestore)
 
-The website responsiveness is managed by [React-detect-device Js](https://www.npmjs.com/package/react-device-detect) on the top level to produce a Desktop view and Mobile view. Later the responsiveness on the Mobile view is managed by css media query.
+The website responsiveness is managed by [React-detect-device Js](https://www.npmjs.com/package/react-device-detect) on the top level to produce a Desktop view and Mobile view. Later the responsiveness on the Mobile view is managed by [css media query](https://www.w3schools.com/css/css_rwd_mediaqueries.asp).
 
 contact @ rudrajit.basu@gmail.com or rbasu.linux@gmail.com.
+
+[logo]: https://github.com/rudrajit-basu/kgms-kid/blob/master/public/kgms_w64.png
