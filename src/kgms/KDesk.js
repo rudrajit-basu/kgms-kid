@@ -67,7 +67,7 @@ class KDesk extends React.Component{
 		this.state = {currentButton:'home',isModal:false,modalMsg:'', kBodyNum: [],
 						KEvents:[{id:0,header:"Please wait... Fetching Events >>",date:"",desc:""}],
 						eventNum:0, isEvenTrig:false, isDVidModal: false, DVidModalSrc: '', 
-						isShowLoading: true, isShowToTop: false};
+						isShowLoading: true, isShowToTop: false, kHomeBodyNum: []};
 		this.getContent = this.getContent.bind(this);
 		this.handleButtonClick = this.handleButtonClick.bind(this);
 		this.handleModalClose = this.handleModalClose.bind(this);
@@ -86,6 +86,7 @@ class KDesk extends React.Component{
 		this.handleGtTopDisplay = this.handleGtTopDisplay.bind(this);
 		this.animateScrollToElem = this.animateScrollToElem.bind(this);
 		this.handleGtTopClick = this.handleGtTopClick.bind(this);
+		this.handleCurrentHomeDecoList = this.handleCurrentHomeDecoList.bind(this);
 		this.bodyRef = React.createRef();
 	}
 
@@ -134,6 +135,7 @@ class KDesk extends React.Component{
 		window.removeEventListener('kRefresh', this.kRefreshInfo, false);
 		clearTimeout(this.timerDecor);
 		clearTimeout(this.timerGTop);
+		clearTimeout(this.timerDecor1);
 	}
 
 	getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -291,14 +293,26 @@ class KDesk extends React.Component{
 
 	getRightDeck(button){
 		if(button==='home'){
+			let rNum = 1;
+			const decoR = this.state.kHomeBodyNum.map((dList)=>{
+				if(rNum === 4){
+					rNum = 0;
+				}
+				return(
+					<div style={{marginTop:'200%'}} key={dList.toString()} align="left">
+						{imgArrR[rNum++]}
+					</div>
+				);
+			});
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'20%'}}>
 						<img src={img_M[1].src} alt={img_M[1].alt} style={{width:"29.3%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
-					<div align="left" style={{marginTop:'75%'}}>
+					<div align="left" style={{marginTop:'80%'}}>
 						<img src={img_M[0].src} alt={img_M[0].alt} style={{width:"22%"}} className="noSelect pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
+					{decoR}
 				</div>
 			);
 		} else if(button==='aboutus'){
@@ -377,8 +391,36 @@ class KDesk extends React.Component{
 		}
 	}
 
+	async handleCurrentHomeDecoList(){
+		if(this.bodyRef.current !== null){
+			let bHeight = this.bodyRef.current.clientHeight;
+			if( bHeight !== undefined && bHeight > 0){
+				let i = bHeight / 625;
+				let j = Math.floor(i);
+				// console.log(`j = ${j}`);
+				let k = [];
+				while(j > 0){
+					k.push(j);
+					j--;
+				}
+				this.setState({kHomeBodyNum: k});
+			}
+		}
+	}
+
 	getLeftDeck(button){
 		if(button==='home'){
+			let lNum = 1;
+			const decoL = this.state.kHomeBodyNum.map((dList)=>{
+				if(lNum === 4){
+					lNum = 0;
+				}
+				return(
+					<div style={{marginTop:'200%'}} key={dList.toString()} align="right">
+						{imgArrL[lNum++]}
+					</div>
+				);
+			});
 			return(
 				<div key={button}>
 					<div align="center" style={{marginTop:'20%'}}>
@@ -387,6 +429,7 @@ class KDesk extends React.Component{
 					<div align="right" style={{marginTop:'100%'}}>
 						<img src={img_O[0].src} alt={img_O[0].alt} style={{width:"65%"}} className="noSelect ImgTilt pt-page-moveFromBottomFade" referrerPolicy="same-origin" loading="lazy"/>
 					</div>
+					{decoL}
 				</div>
 			);
 		} else if(button==='aboutus'){
@@ -457,6 +500,7 @@ class KDesk extends React.Component{
 		};
 		const handleShowGTop = () => {
 			this.timerGTop =  setTimeout(() => this.handleGtTopDisplay(this.bodyRef.current.clientHeight), 100);
+			this.timerDecor1 = setTimeout(() => this.handleCurrentHomeDecoList(),200);
 		}
 		let featuredVideoListItems = this.props.featuredVideosList.map((vidL, index) => {
 			let embedUrl = `https://www.youtube.com/embed/${vidL.videoId}`;
