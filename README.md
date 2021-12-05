@@ -19,6 +19,8 @@ Third party library and api used as follows:
 * [codrops > page transition > css](https://github.com/codrops/PageTransitions)
 * [Hamburgers > hamburger widget > css](https://github.com/jonsuh/hamburgers/blob/master/dist/hamburgers.css)
 * [Firebase firestore](https://firebase.google.com/docs/firestore)
+* [Youtube api v3 Js](https://developers.google.com/youtube/v3/quickstart/js)
+* [Youtube Iframe Embed Api](https://developers.google.com/youtube/iframe_api_reference)
 
 The website responsiveness is managed by [React-detect-device Js](https://www.npmjs.com/package/react-device-detect) on the top level to produce a Desktop view and Mobile view. Later the responsiveness on the Mobile view is managed by [css media query](https://www.w3schools.com/css/css_rwd_mediaqueries.asp).
 
