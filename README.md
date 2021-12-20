@@ -5,9 +5,9 @@ This project is about [Khela Ghar Montessory School's website](https://kgmskid.w
 
 The website showcases the school's different insigths such as photo presentation, featured vidoes, events, programs etc.
 
-The main navigation options of the wesite are [Home, About Us, Events, Programs and Contact Us].
+The main navigation options of the website are [Home, About Us, Events, Programs and Contact Us].
 
-The project is created with create-react-app of [React.js](https://reactjs.org/docs/create-a-new-react-app.html) and hosted at [Firebase](https://firebase.google.com/).
+The project is created using create-react-app of [React.js](https://reactjs.org/docs/create-a-new-react-app.html) and hosted at [Firebase](https://firebase.google.com/).
 
 All images from the website has been designed using [Inkscape](https://inkscape.org/).
 
