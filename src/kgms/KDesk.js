@@ -782,7 +782,7 @@ class KDesk extends React.Component{
 				<div className="Row" style={{marginTop:"60px"}}/*footer start*/>
 					<div className="Column Footer dFooterContainer">
 						<div align="center">
-							<span className="footerTip">&#169; {'Khela Ghar Montessory School, 2021'}</span>
+							<span className="footerTip">&#169; {'Khela Ghar Montessory School, 2021-22'}</span>
 						</div>
 						<div align="center">
 							<img src={F1} alt="footer" style={{width:"75vw"}} key="dFA"

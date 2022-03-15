@@ -61,10 +61,12 @@ class App extends React.Component {
         })
         .then((response)=>{
           // console.log("GAPI client loaded for Youtube API PlaylistItems list !");
-          // console.log("Youtube PlaylistItems Response ->", response);
+          //console.log("Youtube PlaylistItems Response ->", response);
           if (response !== null && response !== undefined) {
             let videoIdList = [];
             for (let i in response.result.items) {
+              //console.log(response.result.items[i]);
+              if (response.result.items[i].snippet.title !== 'Deleted video')
               videoIdList.push({id: response.result.items[i].id, videoId: response.result.items[i].snippet.resourceId.videoId,
                         title: response.result.items[i].snippet.title, thumbnail: response.result.items[i].snippet.thumbnails.standard.url});
             }

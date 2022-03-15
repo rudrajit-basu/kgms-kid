@@ -45,6 +45,7 @@ class KSwipe extends React.Component{
 			        		delay: 5400,
 			        		disableOnInteraction: false,
 			      		},
+			      		
 			      		// navigation: {
 			        // 		nextEl: this.next,
 			        // 		prevEl: this.perv,

@@ -18,14 +18,14 @@ class KMaps extends React.PureComponent {
 
 
   render() {
-    const apiUrl = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJcdhAllx55DkR0J9wi-4RhsQ&key=AIzaSyDIfyeykQyeuziREl5PQvKaH7v3izjqivE&zoom=18";
+    const apiUrl = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJcdhAllx55DkR0J9wi-4RhsQ&key=AIzaSyAThn8f8UwMdfWGTxY37y9GAmviciZ33iE&zoom=18";
     return (
         <div className={isMobile ? 'mKmapContainer' : 'kmapContainer'} key='cm'>
           <div align="center" style={{display: this.state.isMapsLoaded ? 'none' : 'block'}}>
             <p className={isMobile ? 'mcTextMain' : 'dcTextMain'}>{'Loading maps...'}</p></div>
            <iframe className="kmap BorderRound" style={{border:0}} loading="lazy" 
               allowFullScreen key='gm' title='google maps for kgms'
-              src={apiUrl} onLoad={this.handleOnMapLoad} referrerPolicy="same-origin"></iframe> 
+              src={apiUrl} onLoad={this.handleOnMapLoad} referrerPolicy="origin"></iframe> 
         </div>
     );
   }

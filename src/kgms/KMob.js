@@ -617,7 +617,7 @@ class KMob extends React.Component{
 				<div align="center" style={{marginTop:'2em'}} onClick={this.handleFooterAnimation} /*footer start*/>
 					<div align="center">
 						<span style={{visibility: this.state.ismFooterAnimation ? 'visible' : 'hidden'}}
-							className="mFooterTip mTextMain">&#169; {'Khela Ghar Montessory School, 2021'}</span>
+							className="mFooterTip mTextMain">&#169; {'Khela Ghar Montessory School, 2021-22'}</span>
 					</div>
 					<img src={F1} alt="footer" className="mFooter mTextGap3 noSelect" referrerPolicy="same-origin"
 						key="mFA" loading="lazy"/>
